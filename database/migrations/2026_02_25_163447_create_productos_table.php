@@ -20,6 +20,11 @@ return new class extends Migration
     $table->integer('numero_tomo')->nullable();
     $table->string('isbn', 50)->nullable();
     $table->string('imagen')->nullable();
+    
+    $table->foreignId('id_categoria')
+      ->nullable()
+      ->constrained('categorias')
+      ->nullOnDelete();
 
     $table->foreignId('id_serie')
           ->nullable()
