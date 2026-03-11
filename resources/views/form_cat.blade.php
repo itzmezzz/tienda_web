@@ -7,7 +7,12 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>hola mundo</h1>
-        <a href="{{route('login.google')}}"> Iniciar sesion con Gmail</a>
+    <form action="{{ route('categoria.guardar') }}" method="POST">
+        @csrf
+        <label for="">Nombre</label>
+        <input type="text" name="nombre"><br>
+        <input type="submit" value="Guardar">
+
+    </form>
 </body>
 </html>
