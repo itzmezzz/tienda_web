@@ -1,4 +1,4 @@
-<form action="{{ route('productos.guardar') }}" method="POST">
+<form action="{{ route('producto.guardar') }}" method="POST" enctype="multipart/form-data">
     @csrf
 
     <label>Nombre</label>
@@ -11,46 +11,47 @@
     <input type="number" step="0.01" name="precio" required>
 
     <label>Stock</label>
-    <input type="number" name="stock">
+    <input type="number" name="stock" required>
 
     <label>Número de tomo</label>
-    <input type="number" name="numero_tomo">
+    <input type="number" name="numero_tomo" required>
 
     <label>ISBN</label>
-    <input type="text" name="isbn">
+    <input type="text" name="isbn" required>
 
-    <label>Imagen</label>
-    <input type="file" name="imagen">
+    
 
     <label>Categoría</label>
-    <select name="id_categoria">
-        <option value="">Seleccionar</option>
-        @foreach($categorias as $categoria)
-            <option value="{{ $categoria->id }}">
-                {{ $categoria->nombre }}
+    <select name="id_categoria" required>
+        <option value="" >Seleccionar</option>
+        @foreach($categoria as $fila)
+            <option value="{{ $fila->id }}">
+                {{ $fila->nombre }}
             </option>
         @endforeach
     </select>
 
     <label>Serie</label>
-    <select name="id_serie">
+    <select name="id_serie" required>
         <option value="">Seleccionar</option>
-        @foreach($series as $serie)
-            <option value="{{ $serie->id }}">
-                {{ $serie->nombre }}
+        @foreach($serie as $fila)
+            <option value="{{ $fila->id }}">
+                {{ $fila->nombre }}
             </option>
         @endforeach
     </select>
 
     <label>Editorial</label>
-    <select name="id_editorial">
+    <select name="id_editorial" required>
         <option value="">Seleccionar</option>
-        @foreach($editoriales as $editorial)
-            <option value="{{ $editorial->id }}">
-                {{ $editorial->nombre }}
+        @foreach($editorial as $fila)
+            <option value="{{ $fila->id }}">
+                {{ $fila->nombre }}
             </option>
         @endforeach
     </select>
+    <label>Imagen</label>
+    <input type="file" name="imagen" required>
 
     <button type="submit">Guardar producto</button>
 

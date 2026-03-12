@@ -23,9 +23,7 @@ Route::get('/google-login', function(){
 })->name('login.google');
 
 //producto
-Route::get('/producto/form', function () {
-    return view('form_prod');
-});
+Route::get('/producto/form',[ProductoController::class, 'nuevo'])->name('producto.nuevo');
 Route::post('/producto/guardar',[ProductoController::class, 'guardar'])->name('producto.guardar');
 //autores
 Route::get('/autores/form', function () {
@@ -37,7 +35,5 @@ Route::get('/series/form',[SerieController::class, 'nuevo'])->name('serie.nuevo'
 Route::post('/series/guardar',[SerieController::class, 'guardar'])->name('serie.guardar');
 
 //editoriales
-Route::get('/editorial/form', function () {
-    return view('form_editorial');
-});
+Route::get('/editorial/form',[EditorialController::class, 'nuevo'])->name('editorial.nuevo');
 Route::post('/editorial/guardar',[EditorialController::class, 'guardar'])->name('editorial.guardar');
