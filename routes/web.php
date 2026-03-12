@@ -6,7 +6,8 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\AutoreController;
 use App\Http\Controllers\SerieController;
 use App\Http\Controllers\EditorialController;
-use App\Models\user;
+use App\Http\Controllers\UserController;
+use Laravel\Socialite\Facades\Socialite;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,18 +18,22 @@ Route::get('/categoria/form', function () {
 });
 Route::post('/categoria/guardar',[CategoriaController::class, 'guardar'])->name('categoria.guardar');
 
+// Login tradicional
+Route::get('/login', [UserController::class, 'showLoginForm'])->name('login.form');
+Route::post('/login', [UserController::class, 'login'])->name('login');
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 //google
 Route::get('/google-login', function(){
     return Socialite::driver('google')->redirect();
 })->name('login.google');
+Route::get('/google-callback', [UserController::class, 'handleGoogleCallback']);
 
 //producto
 Route::get('/producto/form',[ProductoController::class, 'nuevo'])->name('producto.nuevo');
 Route::post('/producto/guardar',[ProductoController::class, 'guardar'])->name('producto.guardar');
 //autores
-Route::get('/autores/form', function () {
-    return view('form_aut');
-});
+
+Route::get('/autores/form',[AutoreController::class, 'nuevo'])->name('autores.nuevo');
 Route::post('/autores/guardar',[AutoreController::class, 'guardar'])->name('autores.guardar');
 //series
 Route::get('/series/form',[SerieController::class, 'nuevo'])->name('serie.nuevo');
