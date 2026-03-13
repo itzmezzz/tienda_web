@@ -18,6 +18,7 @@ Route::get('/categoria/form', function () {
     return view('form_cat');
 });
 Route::post('/categoria/guardar',[CategoriaController::class, 'guardar'])->name('categoria.guardar');
+Route::get('/categoria/lista',[CategoriaController::class, 'lista'])->name('categoria.lista');
 
 // Login tradicional
 Route::get('/login', [UserController::class, 'showLoginForm'])->name('login.form');
@@ -38,15 +39,18 @@ Route::get('/producto/live-search', [ProductoController::class, 'liveSearch'])->
 
 Route::get('/autores/form',[AutoreController::class, 'nuevo'])->name('autores.nuevo');
 Route::post('/autores/guardar',[AutoreController::class, 'guardar'])->name('autores.guardar');
+Route::get('/autores/lista',[AutoreController::class, 'lista'])->name('autores.lista');
 //series
+
 Route::get('/series/form',[SerieController::class, 'nuevo'])->name('serie.nuevo');
 Route::post('/series/guardar',[SerieController::class, 'guardar'])->name('serie.guardar');
+Route::get('/series/lista',[SerieController::class, 'lista'])->name('serie.lista');
 
 //editoriales
 Route::get('/editorial/form',[EditorialController::class, 'nuevo'])->name('editorial.nuevo');
 Route::post('/editorial/guardar',[EditorialController::class, 'guardar'])->name('editorial.guardar');
+Route::get('/editorial/lista',[EditorialController::class, 'lista'])->name('editorial.lista');
 
-//dashboard
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware('auth')
-    ->name('dashboard');
+Route::get('/dashboard', function () 
+{     return view('dashboard'); 
+});

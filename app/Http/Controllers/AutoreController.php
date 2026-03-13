@@ -15,4 +15,9 @@ class AutoreController extends Controller
 function nuevo(){
     return view('form_aut');
 }
+function lista(){
+    $autores = Autore::all();
+    return view('lista_autor', compact('autores'));
+}
+
 }

@@ -15,4 +15,8 @@ class EditorialController extends Controller
         $editorial->nombre = $req->nombre;
         $editorial->save();
 }
+function lista(){
+    $editoriales = Editorial::all();
+    return view('lista_editorial', compact('editoriales'));
+}
 }

@@ -18,4 +18,5 @@ class SerieController extends Controller
         $series->id_categoria = $req->id_categoria;
         $series->save();
 }
+
 }
