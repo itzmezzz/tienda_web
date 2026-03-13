@@ -36,12 +36,14 @@ Agregar Serie
 </thead>
 
 <tbody class="divide-y divide-slate-700">
+@foreach ($series as $fila)
+    
 
 <tr class="hover:bg-slate-700 transition">
 
-<td class="p-4 font-semibold"></td>
-<td class="p-4 text-slate-300"></td>
-<td class="p-4"></td>
+<td class="p-4 font-semibold">{{ $fila->nombre }}</td>
+<td class="p-4 text-slate-300">{{ $fila->descripcion }}</td>
+<td class="p-4">{{ $fila->categoria->nombre ?? 'N/A' }}</td>
 
 <td class="p-4">
 <div class="flex gap-3 justify-center">
@@ -58,26 +60,8 @@ Eliminar
 </td>
 
 </tr>
+@endforeach
 
-<tr class="hover:bg-slate-700 transition">
-
-<td class="p-4 font-semibold"></td>
-<td class="p-4 text-slate-300"></td>
-<td class="p-4"></td>
-
-<td class="p-4">
-<div class="flex gap-3 justify-center">
-
-<button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-md text-sm">
-Editar
-</button>
-
-<button class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded-md text-sm">
-Eliminar
-</button>
-
-</div>
-</td>
 
 </tr>
 
