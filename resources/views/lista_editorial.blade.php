@@ -13,6 +13,13 @@
 
 <h1 class="text-3xl font-bold mb-8">Lista de Editoriales</h1>
 
+<div class="flex justify-end mb-6">
+<a href="{{ route('editorial.nuevo') }}"
+class="bg-green-600 hover:bg-green-700 px-6 py-2 rounded-md text-sm font-medium">
+Agregar Editorial
+</a>
+</div>
+
 <div class="overflow-x-auto bg-slate-800 rounded-xl shadow-lg">
 
 <table class="w-full text-sm text-left">
@@ -31,13 +38,9 @@
 
 <td class="p-4">
 <div class="flex justify-center gap-3">
-
 <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-md text-sm">
 Editar
 </button>
-
-
-
 </div>
 </td>
 </tr>
@@ -47,12 +50,9 @@ Editar
 
 <td class="p-4">
 <div class="flex justify-center gap-3">
-
 <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-md text-sm">
 Editar
 </button>
-
-
 </div>
 </td>
 </tr>
@@ -62,13 +62,9 @@ Editar
 
 <td class="p-4">
 <div class="flex justify-center gap-3">
-
 <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-md text-sm">
 Editar
 </button>
-
-
-
 </div>
 </td>
 </tr>

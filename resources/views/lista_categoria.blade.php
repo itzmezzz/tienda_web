@@ -13,6 +13,17 @@
 
 <h1 class="text-3xl font-bold mb-8">Lista de Categorías</h1>
 
+
+
+<div class="flex justify-end mb-6">
+
+<a href="{{ route('categoria.nueva') }}"
+class="bg-green-600 hover:bg-green-700 px-5 py-2 rounded-md text-sm font-medium">
+Agregar Categoria
+</a>
+
+</div>
+
 <div class="overflow-x-auto bg-slate-800 rounded-xl shadow-lg">
 
 <table class="w-full text-sm text-left">

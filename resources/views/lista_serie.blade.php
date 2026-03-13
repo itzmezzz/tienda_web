@@ -3,63 +3,87 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>form serie</title>
-<link rel="stylesheet" href="src/output.css">
+<title>Lista de Series</title>
+<link rel="stylesheet" href="{{ asset('src/output.css') }}">
 </head>
 
 <body class="bg-slate-900 min-h-screen p-10 text-white">
 
-<div class="max-w-5xl mx-auto">
+<div class="max-w-7xl mx-auto">
 
-<h1 class="text-3xl font-bold mb-8">Crear Serie</h1>
+<h1 class="text-3xl font-bold mb-8">Lista de Series</h1>
 
-<div class="bg-slate-800 p-8 rounded-xl shadow-lg">
+<div class="flex justify-end mb-6">
 
-<form action="#" method="POST">
-
-<div class="grid grid-cols-2 gap-6">
-
-<div class="col-span-2">
-<label class="block mb-2 text-slate-200">Nombre</label>
-<input type="text" name="nombre" required
-class="w-full px-4 py-2 rounded bg-slate-700 border border-slate-600 focus:outline-none focus:border-blue-500">
-</div>
-
-<div class="col-span-2">
-<label class="block mb-2 text-slate-200">Descripción</label>
-<textarea name="descripcion" cols="30" rows="5"
-class="w-full px-4 py-2 rounded bg-slate-700 border border-slate-600 focus:outline-none focus:border-blue-500"></textarea>
-</div>
-
-<div class="col-span-2">
-<label class="block mb-2 text-slate-200">Categoría</label>
-<select name="id_categoria"
-class="w-full px-4 py-2 rounded bg-slate-700 border border-slate-600 focus:outline-none focus:border-blue-500">
-
-<option>Shonen</option>
-<option>Seinen</option>
-<option>Shojo</option>
-
-</select>
-</div>
-
-</div>
-
-<div class="flex justify-center gap-4 mt-8">
-
-<button type="submit"
-class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-md text-sm">
-Guardar serie
-</button>
-
-<a href="#"
-class="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-md text-sm">
-Cancelar
+<a href="{{ route('serie.nuevo') }}"
+class="bg-green-600 hover:bg-green-700 px-6 py-2 rounded-md text-sm font-medium">
+Agregar Serie
 </a>
 
 </div>
 
-</form>
+<div class="overflow-x-auto bg-slate-800 rounded-xl shadow-lg">
+
+<table class="w-full text-sm text-left">
+
+<thead class="bg-slate-700 text-slate-200 uppercase text-xs">
+<tr>
+<th class="p-4">Nombre</th>
+<th class="p-4">Descripción</th>
+<th class="p-4">Categoría</th>
+<th class="p-4 text-center">Acciones</th>
+</tr>
+</thead>
+
+<tbody class="divide-y divide-slate-700">
+
+<tr class="hover:bg-slate-700 transition">
+
+<td class="p-4 font-semibold"></td>
+<td class="p-4 text-slate-300"></td>
+<td class="p-4"></td>
+
+<td class="p-4">
+<div class="flex gap-3 justify-center">
+
+<button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-md text-sm">
+Editar
+</button>
+
+<button class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded-md text-sm">
+Eliminar
+</button>
+
+</div>
+</td>
+
+</tr>
+
+<tr class="hover:bg-slate-700 transition">
+
+<td class="p-4 font-semibold"></td>
+<td class="p-4 text-slate-300"></td>
+<td class="p-4"></td>
+
+<td class="p-4">
+<div class="flex gap-3 justify-center">
+
+<button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-md text-sm">
+Editar
+</button>
+
+<button class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded-md text-sm">
+Eliminar
+</button>
+
+</div>
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
 
 </div>
 

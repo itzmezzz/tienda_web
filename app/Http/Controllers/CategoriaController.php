@@ -15,5 +15,8 @@ function lista(){
     $categorias = Categoria::all();
     return view('lista_categoria', compact('categorias'));
 }
+function nuevo(){
+    return view('form_cat');
+}
 }
 
