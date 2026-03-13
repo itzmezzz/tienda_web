@@ -41,11 +41,51 @@ class ProductoController extends Controller
 
     $producto->save();
 
-    return redirect()->route('producto.nuevo')->with('success', 'Producto guardado correctamente');
+    return redirect()->route('producto.lista')->with('success', 'Producto guardado correctamente');
 }
 function lista(){
-    $productos = Producto::all();
+    $productos = Producto::with(['autor', 'serie', 'categoria', 'editorial'])->get();
     return view('list_manga', compact('productos'));
+}
+
+public function liveSearch(Request $req)
+{
+   $query = $req->input('q');
+
+    $query = $request->input('q');
+
+    if (!$query) {
+        return response()->json([]);
+    }
+
+    $productos = Producto::where('nombre', 'like', "$query%") // empiecen con lo que escriba
+        ->limit(5) // limitar resultados
+        ->get(['id', 'nombre']); // solo devolver id y nombre
+
+    return response()->json($productos);
+
+}
+public function buscar(Request $req)
+{
+    $query = $req->input('q');
+
+    $productos = Producto::with(['autor','serie','categoria','editorial'])
+        ->where('nombre', 'like', "%$query%")
+        ->orWhereHas('autor', function($q) use ($query){
+            $q->where('nombre', 'like', "%$query%");
+        })
+        ->orWhereHas('serie', function($q) use ($query){
+            $q->where('nombre', 'like', "%$query%");
+        })
+        ->orWhereHas('categoria', function($q) use ($query){
+            $q->where('nombre', 'like', "%$query%");
+        })
+        ->orWhereHas('editorial', function($q) use ($query){
+            $q->where('nombre', 'like', "%$query%");
+        })
+        ->get();
+
+    return view('list_manga', compact('productos', 'query'));
 }
 }
     

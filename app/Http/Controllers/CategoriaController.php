@@ -11,5 +11,9 @@ class CategoriaController extends Controller
         $categoria->nombre = $req->nombre;
         $categoria->save();
 }
+function lista(){
+    $categorias = Categoria::all();
+    return view('lista_categoria', compact('categorias'));
+}
 }
 
