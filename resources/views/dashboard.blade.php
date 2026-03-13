@@ -71,7 +71,7 @@
                     <i class="fas fa-truck w-5 text-center group-hover:text-admin-accent transition-colors"></i>
                     <span class="font-medium">Envíos</span>
                 </a>
-                 <a href="{{ route('producto.mostrar') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 transition-all duration-300 hover:bg-gradient-to-r hover:from-[rgba(230,57,70,0.15)] hover:to-transparent hover:border-l-[3px] hover:border-admin-accent hover:text-white group">
+                 <a href="{{ route('producto.nuevo') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 transition-all duration-300 hover:bg-gradient-to-r hover:from-[rgba(230,57,70,0.15)] hover:to-transparent hover:border-l-[3px] hover:border-admin-accent hover:text-white group">
                     <i class="fas fa-book w-5 text-center group-hover:text-admin-accent transition-colors"></i>
                     <span class="font-medium">Mangas</span>
                  </a>
@@ -84,6 +84,12 @@
                     <i class="fas fa-layer-group w-5 text-center group-hover:text-admin-accent transition-colors"></i>
                     <span class="font-medium">Añadir Serie</span>
                 </a>
+
+                 <a href="{{ route('autores.nuevo') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 transition-all duration-300 hover:bg-gradient-to-r hover:from-[rgba(230,57,70,0.15)] hover:to-transparent hover:border-l-[3px] hover:border-admin-accent hover:text-white group">
+                    <i class="fas fa-truck w-5 text-center group-hover:text-admin-accent transition-colors"></i>
+                    <span class="font-medium">Autores</span>
+
+                 </a>
             </nav>
 
             <!-- User Profile -->

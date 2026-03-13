@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="{{ asset('src/output.css') }}">
 </head>
 
+
 <body class="bg-[#0f172a] min-h-screen flex items-center justify-center">
 
 <div class="bg-slate-800 p-12 rounded-xl shadow-2xl w-[420px]">
