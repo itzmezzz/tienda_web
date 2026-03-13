@@ -1,5 +1,4 @@
- <!-- Sidebar -->
-        <aside class="w-72 bg-admin-sidebar border-r border-slate-700 flex flex-col transition-all duration-300" id="sidebar">
+<aside class="w-72 bg-admin-sidebar border-r border-slate-700 flex flex-col transition-all duration-300" id="sidebar">
             <!-- Logo -->
             <div class="h-16 flex items-center px-6 border-b border-slate-700">
                 <div class="w-10 h-10 bg-gradient-to-br from-admin-accent to-pink-600 rounded-xl flex items-center justify-center mr-3 shadow-lg shadow-red-500/20">
@@ -18,7 +17,7 @@
                 <p class="px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Principal</p>
 
                 <!-- Enlace activo (clase active aplicada directamente con Tailwind) -->
-                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-white transition-all duration-300 bg-gradient-to-r from-[rgba(230,57,70,0.15)] to-transparent border-l-[3px] border-admin-accent group">
+                <a href="/dashboard" class="flex items-center gap-3 px-4 py-3 rounded-lg text-white transition-all duration-300 bg-gradient-to-r from-[rgba(230,57,70,0.15)] to-transparent border-l-[3px] border-admin-accent group">
                     <i class="fas fa-chart-line w-5 text-center text-admin-accent transition-colors"></i>
                     <span class="font-medium">Dashboard</span>
                     <span class="ml-auto bg-admin-accent text-white text-xs px-2 py-0.5 rounded-full">Nuevo</span>
@@ -39,7 +38,7 @@
                 </a>
 
                 <p class="px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider mt-8 mb-3">Gestión</p>
-                <a href="{{ url('/categoria/form') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 transition-all duration-300 hover:bg-gradient-to-r hover:from-[rgba(230,57,70,0.15)] hover:to-transparent hover:border-l-[3px] hover:border-admin-accent hover:text-white group">
+                <a href="{{ url('categoria/lista') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 transition-all duration-300 hover:bg-gradient-to-r hover:from-[rgba(230,57,70,0.15)] hover:to-transparent hover:border-l-[3px] hover:border-admin-accent hover:text-white group">
                     <i class="fas fa-tags w-5 text-center group-hover:text-admin-accent transition-colors"></i>
                     <span class="font-medium">Categorías</span>
                 </a>
@@ -47,19 +46,29 @@
                     <i class="fas fa-truck w-5 text-center group-hover:text-admin-accent transition-colors"></i>
                     <span class="font-medium">Envíos</span>
                 </a>
+
+                
+
                  <a href="{{ route('producto.lista') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 transition-all duration-300 hover:bg-gradient-to-r hover:from-[rgba(230,57,70,0.15)] hover:to-transparent hover:border-l-[3px] hover:border-admin-accent hover:text-white group">
+
                     <i class="fas fa-book w-5 text-center group-hover:text-admin-accent transition-colors"></i>
                     <span class="font-medium">Mangas</span>
                  </a>
                     
-                 <a href="{{ route('editorial.nuevo') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 transition-all duration-300 hover:bg-gradient-to-r hover:from-[rgba(230,57,70,0.15)] hover:to-transparent hover:border-l-[3px] hover:border-admin-accent hover:text-white group">
+                 <a href="{{ route('editorial.lista') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 transition-all duration-300 hover:bg-gradient-to-r hover:from-[rgba(230,57,70,0.15)] hover:to-transparent hover:border-l-[3px] hover:border-admin-accent hover:text-white group">
                     <i class="fas fa-newspaper w-5 text-center group-hover:text-admin-accent transition-colors"></i>
-                    <span class="font-medium">Añadir Editorial</span>
+                    <span class="font-medium">Editoriales</span>
                     </a>
-              <a href="{{ route('serie.nuevo') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 transition-all duration-300 hover:bg-gradient-to-r hover:from-[rgba(230,57,70,0.15)] hover:to-transparent hover:border-l-[3px] hover:border-admin-accent hover:text-white group">
+              <a href="{{ route('serie.lista') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 transition-all duration-300 hover:bg-gradient-to-r hover:from-[rgba(230,57,70,0.15)] hover:to-transparent hover:border-l-[3px] hover:border-admin-accent hover:text-white group">
                     <i class="fas fa-layer-group w-5 text-center group-hover:text-admin-accent transition-colors"></i>
-                    <span class="font-medium">Añadir Serie</span>
+                    <span class="font-medium">Series</span>
                 </a>
+
+                 <a href="{{ route('autores.lista') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 transition-all duration-300 hover:bg-gradient-to-r hover:from-[rgba(230,57,70,0.15)] hover:to-transparent hover:border-l-[3px] hover:border-admin-accent hover:text-white group">
+                    <i class="fas fa-user-pen w-5 text-center group-hover:text-admin-accent transition-colors"></i>
+                    <span class="font-medium">Autores</span>
+
+                 </a>
             </nav>
 
             <!-- User Profile -->

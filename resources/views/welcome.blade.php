@@ -28,7 +28,7 @@ Iniciar sesión
 <hr class="my-6 border-gray-300">
 
 <div class="mt-4">
-<a href="{{ route('login.google') }}" class="flex items-center justify-center gap-2 w-full border border-gray-300 px-4 py-3 rounded hover:bg-gray-100">
+<a href="{{ route('google.login') }}" class="flex items-center justify-center gap-2 w-full border border-gray-300 px-4 py-3 rounded hover:bg-gray-100">
 
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="w-5 h-5">
 <path fill="#EA4335" d="M24 9.5c3.4 0 6.4 1.2 8.8 3.2l6.6-6.6C35.7 2.3 30.2 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.7 6C12.1 13.3 17.6 9.5 24 9.5z"/>

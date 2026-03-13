@@ -31,7 +31,8 @@
                             <i class="fas fa-bell text-slate-400"></i>
                             <span class="absolute top-2 right-2 w-2 h-2 bg-admin-accent rounded-full animate-pulse"></span>
                         </button>
-                         <!-- Dropdown - convertido de .dropdown-menu + .hidden -->
+
+                        <!-- Dropdown - convertido de .dropdown-menu + .hidden -->
                         <!-- origin-top-right transition-all duration-200, estado oculto = scale-95 opacity-0 pointer-events-none -->
                         <div id="notifications-dropdown" class="origin-top-right transition-all duration-200 scale-95 opacity-0 pointer-events-none absolute right-0 mt-2 w-80 bg-slate-800 rounded-xl shadow-2xl border border-slate-700 z-50">
                             <div class="p-4 border-b border-slate-700 flex items-center justify-between">
@@ -44,4 +45,47 @@
                                         <div class="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
                                             <i class="fas fa-shopping-bag text-green-400 text-xs"></i>
                                         </div>
-                        </main>
+                                        <div>
+                                            <p class="text-sm text-white font-medium">Nuevo pedido #1234</p>
+                                            <p class="text-xs text-slate-400 mt-1">Jujutsu Kaisen Vol. 18 x2</p>
+                                            <p class="text-xs text-slate-500 mt-1">Hace 2 minutos</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4 hover:bg-slate-700/50 cursor-pointer border-b border-slate-700/50 transition-colors">
+                                    <div class="flex gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-yellow-500/20 flex items-center justify-center flex-shrink-0">
+                                            <i class="fas fa-exclamation-triangle text-yellow-400 text-xs"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-white font-medium">Stock bajo</p>
+                                            <p class="text-xs text-slate-400 mt-1">One Piece Vol. 103 (5 unidades)</p>
+                                            <p class="text-xs text-slate-500 mt-1">Hace 1 hora</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4 hover:bg-slate-700/50 cursor-pointer transition-colors">
+                                    <div class="flex gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0">
+                                            <i class="fas fa-user text-blue-400 text-xs"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-white font-medium">Nuevo registro</p>
+                                            <p class="text-xs text-slate-400 mt-1">María García se ha registrado</p>
+                                            <p class="text-xs text-slate-500 mt-1">Hace 3 horas</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-3 border-t border-slate-700 text-center">
+                                <button class="text-sm text-admin-accent hover:text-white transition-colors">Ver todas</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <button class="w-10 h-10 rounded-lg bg-admin-accent hover:bg-red-600 flex items-center justify-center transition-colors shadow-lg shadow-red-500/20" onclick="openQuickAdd()">
+                        <i class="fas fa-plus text-white"></i>
+                    </button>
+                </div>
+            </header>

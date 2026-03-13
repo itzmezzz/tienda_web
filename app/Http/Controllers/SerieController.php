@@ -18,5 +18,8 @@ class SerieController extends Controller
         $series->id_categoria = $req->id_categoria;
         $series->save();
 }
+function lista(){
+    $series = Serie::with('categoria')->get();
+    return view('lista_serie', compact('series'));
 
-}
+}}

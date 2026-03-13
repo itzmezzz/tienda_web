@@ -7,10 +7,11 @@
 <link rel="stylesheet" href="{{ asset('src/output.css') }}">
 </head>
 
-    
+
+{{-- @include('components.header') --}}
 
 <body class="bg-slate-900 text-white">
-{{-- @include('components.header') --}}
+
 <div class="flex min-h-screen">
     
     {{-- SIDEBAR --}}
@@ -24,7 +25,7 @@
         <div class="max-w-7xl mx-auto">
 
             <h1 class="text-3xl font-bold mb-8">Lista de Mangas</h1>
- @include('components.charts') <br>
+            {{-- @include('components.charts') <br> --}}
             <form action="{{ route('producto.buscar') }}" method="GET" class="relative w-64 mb-6">
 
                 <div class="flex">
