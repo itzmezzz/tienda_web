@@ -23,15 +23,12 @@ Route::get('/login', [UserController::class, 'showLoginForm'])->name('login.form
 Route::post('/login', [UserController::class, 'login'])->name('login');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 //google
-Route::get('/google-login', function(){
-    return Socialite::driver('google')->redirect();
-})->name('login.google');
+Route::get('/auth/google', [UserController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('/google-callback', [UserController::class, 'handleGoogleCallback']);
 
 //producto
 Route::get('/producto/form',[ProductoController::class, 'nuevo'])->name('producto.nuevo');
 Route::post('/producto/guardar',[ProductoController::class, 'guardar'])->name('producto.guardar');
-Route::get('/producto/mostrar',[ProductoController::class, 'lista'])->name('producto.mostrar');
 //autores
 
 Route::get('/autores/form',[AutoreController::class, 'nuevo'])->name('autores.nuevo');
@@ -43,8 +40,3 @@ Route::post('/series/guardar',[SerieController::class, 'guardar'])->name('serie.
 //editoriales
 Route::get('/editorial/form',[EditorialController::class, 'nuevo'])->name('editorial.nuevo');
 Route::post('/editorial/guardar',[EditorialController::class, 'guardar'])->name('editorial.guardar');
-
-//dashboard
-Route::get('/dashboard', function () {
-    return view('components.dashboard');
-});
