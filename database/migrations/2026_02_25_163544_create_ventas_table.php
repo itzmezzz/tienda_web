@@ -25,7 +25,13 @@ return new class extends Migration
 
     $table->timestamp('fecha')->useCurrent();
     $table->decimal('total', 10, 2)->nullable();
-    $table->string('estado', 50)->default('pendiente');
+    $table-> enum('estado', [
+ 'pendiente',
+ 'pagado',
+ 'enviado',
+ 'entregado',
+ 'cancelado'
+    ])->default('pendiente');
             $table->timestamps();
         });
     }
