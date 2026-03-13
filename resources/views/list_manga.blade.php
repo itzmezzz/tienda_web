@@ -47,6 +47,8 @@ class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-md text-sm font-medium"
 Agregar Manga
 </a>
 
+<div id="resultados"
+class="absolute left-0 top-full mt-1 w-full bg-slate-800 text-white rounded shadow-lg z-50 hidden">
 </div>
 
 

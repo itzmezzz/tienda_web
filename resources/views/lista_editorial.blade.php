@@ -44,25 +44,16 @@ Agregar Editorial
 </thead>
 
 <tbody class="divide-y divide-slate-700">
+@foreach ($editoriales as $fila)
+    
 
 <tr class="hover:bg-slate-700 transition">
-<td class="p-4 font-semibold">Shueisha</td>
+<td class="p-4 font-semibold">{{ $fila->nombre }}</td>
 
 <td class="p-4">
 <div class="flex justify-center gap-3">
 
-<button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-md text-sm">
-Editar
-</button>
-
-</div>
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
+@endforeach
 
 </div>
 

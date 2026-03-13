@@ -1,54 +1,42 @@
-document.addEventListener("DOMContentLoaded", function () {
+const buscador = document.getElementById("buscador");
+const resultados = document.getElementById("resultados");
 
-const input = document.getElementById('searchInput');
-const results = document.getElementById('searchResults');
-
-input.addEventListener('input', function () {
+buscador.addEventListener("keyup", function(){
 
     let query = this.value;
 
     if(query.length < 1){
-        results.innerHTML = "";
-        results.classList.add("hidden");
+        resultados.classList.add("hidden");
+        resultados.innerHTML = "";
         return;
     }
 
-    fetch(`/producto/live-search?q=${encodeURIComponent(query)}`)
+    fetch("/producto/live-search?q=" + encodeURIComponent(query))
     .then(res => res.json())
     .then(data => {
 
-        results.innerHTML = "";
+        resultados.innerHTML = "";
 
         if(data.length === 0){
-            results.classList.add("hidden");
-            return;
+            resultados.innerHTML = `<div class="p-2 text-gray-400">Sin resultados</div>`;
         }
 
         data.forEach(producto => {
 
-            let item = document.createElement("div");
+            resultados.innerHTML += `
+            <a href="/buscar?q=${encodeURIComponent(producto.nombre)}"
+            class="flex items-center gap-3 p-2 hover:bg-slate-700 cursor-pointer border-b border-slate-600">
 
-            item.classList.add(
-                "p-2",
-                "cursor-pointer",
-                "hover:bg-gray-200"
-            );
+                <div class="text-sm">
+                    ${producto.nombre}
+                </div>
 
-            item.textContent = producto.nombre;
-
-            item.onclick = function(){
-                input.value = producto.nombre;
-                results.classList.add("hidden");
-            };
-
-            results.appendChild(item);
-
+            </a>
+            `;
         });
 
-        results.classList.remove("hidden");
+        resultados.classList.remove("hidden");
 
     });
-
-});
 
 });
