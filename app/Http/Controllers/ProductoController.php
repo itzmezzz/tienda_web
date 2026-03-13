@@ -40,6 +40,9 @@ class ProductoController extends Controller
 
     return redirect()->route('producto.nuevo')->with('success', 'Producto guardado correctamente');
 }
-    
+function lista(){
+    $productos = Producto::all();
+    return view('list_manga', compact('productos'));
+}
 }
     

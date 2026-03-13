@@ -31,6 +31,7 @@ Route::get('/google-callback', [UserController::class, 'handleGoogleCallback']);
 //producto
 Route::get('/producto/form',[ProductoController::class, 'nuevo'])->name('producto.nuevo');
 Route::post('/producto/guardar',[ProductoController::class, 'guardar'])->name('producto.guardar');
+Route::get('/producto/mostrar',[ProductoController::class, 'lista'])->name('producto.mostrar');
 //autores
 
 Route::get('/autores/form',[AutoreController::class, 'nuevo'])->name('autores.nuevo');
@@ -42,3 +43,8 @@ Route::post('/series/guardar',[SerieController::class, 'guardar'])->name('serie.
 //editoriales
 Route::get('/editorial/form',[EditorialController::class, 'nuevo'])->name('editorial.nuevo');
 Route::post('/editorial/guardar',[EditorialController::class, 'guardar'])->name('editorial.guardar');
+
+//dashboard
+Route::get('/dashboard', function () {
+    return view('components.dashboard');
+});

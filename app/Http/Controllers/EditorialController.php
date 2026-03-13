@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 class EditorialController extends Controller
 {
+
+    public function nuevo(){
+        return view('form_editorial');
+    }
     function guardar(Request $req){
         $editorial = new Editorial();
         $editorial->nombre = $req->nombre;
