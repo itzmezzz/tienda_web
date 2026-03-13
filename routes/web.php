@@ -37,6 +37,7 @@ Route::get('/producto/lista',[ProductoController::class, 'lista'])->name('produc
 Route::get('/buscar', [ProductoController::class, 'buscar'])->name('producto.buscar');
 Route::get('/producto/live-search', [ProductoController::class, 'liveSearch'])->name('producto.liveSearch');
 
+
 //autores
 
 Route::get('/autores/form',[AutoreController::class, 'nuevo'])->name('autores.nuevo');
