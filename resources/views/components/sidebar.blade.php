@@ -78,8 +78,8 @@
                 <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/50 hover:bg-slate-800 cursor-pointer transition-colors group">
                     <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=100" alt="Admin" class="w-10 h-10 rounded-full border-2 border-admin-accent">
                     <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-white truncate">{{ Auth::user()->name }}</p>
-                        <p class="text-xs text-slate-500 truncate">{{ Auth::user()->email }}</p>
+                        {{-- <p class="text-sm font-medium text-white truncate">{{ Auth::user()->name }}</p> --}}
+                        {{-- <p class="text-xs text-slate-500 truncate">{{ Auth::user()->email }}</p> --}}
                     </div>
                     <i class="fas fa-chevron-right text-xs text-slate-500 group-hover:text-white transition-colors"></i>
                 </div>

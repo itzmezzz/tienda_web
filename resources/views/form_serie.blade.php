@@ -49,7 +49,7 @@ class="bg-green-600 hover:bg-green-700 px-6 py-2 rounded-lg font-medium transiti
 Guardar serie
 </button>
 
-<a href="/dashboard"
+<a href="{{ route('serie.lista') }}"
 class="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-lg text-white font-medium transition">
 Cancelar
 </a>

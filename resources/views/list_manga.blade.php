@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,26 +22,17 @@
 
 <h1 class="text-3xl font-bold mb-6">Lista de Mangas</h1>
 
-<div class="flex justify-between items-center mb-6 relative z-50">
+{{-- @include('components.charts') --}}
+
+<div class="flex justify-between items-center mb-6">
 
 <form action="{{ route('producto.buscar') }}" method="GET" class="flex w-72">
 
-<div class="relative w-full">
-
 <input 
 type="text"
-id="buscador"
 name="q"
-value="{{ $query ?? '' }}"
 placeholder="Buscar manga, autor..."
-autocomplete="off"
 class="border rounded-l px-4 py-2 w-full">
-
-<div id="resultados"
-class="absolute left-0 top-full mt-1 w-full bg-slate-800 text-white rounded shadow-lg z-50 hidden">
-</div>
-
-</div><br>
 
 <button 
 type="submit"
@@ -55,9 +47,11 @@ class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-md text-sm font-medium"
 Agregar Manga
 </a>
 
-</div><br>
+<div id="resultados"
+class="absolute left-0 top-full mt-1 w-full bg-slate-800 text-white rounded shadow-lg z-50 hidden">
+</div>
 
-{{-- TABLA --}}
+
 <div class="overflow-x-auto bg-slate-800 rounded-xl shadow-lg">
 
 <table class="w-full text-sm text-left">
