@@ -7,7 +7,15 @@
 <link rel="stylesheet" href="{{ asset('src/output.css') }}">
 </head>
 
-<body class="bg-slate-900 min-h-screen p-10 text-white">
+<body class="bg-slate-900 text-white">
+
+<div class="flex min-h-screen">
+
+{{-- SIDEBAR --}}
+@include('components.sidebar')
+
+{{-- CONTENIDO --}}
+<div class="flex-1 p-10">
 
 <div class="max-w-5xl mx-auto">
 
@@ -43,10 +51,6 @@ Editar
 </button>
 </div>
 </td>
-</tr>
-
-<tr class="hover:bg-slate-700 transition">
-<td class="p-4 font-semibold">Kodansha</td>
 
 <td class="p-4">
 <div class="flex justify-center gap-3">
@@ -55,10 +59,6 @@ Editar
 </button>
 </div>
 </td>
-</tr>
-
-<tr class="hover:bg-slate-700 transition">
-<td class="p-4 font-semibold">Shogakukan</td>
 
 <td class="p-4">
 <div class="flex justify-center gap-3">
@@ -66,12 +66,8 @@ Editar
 Editar
 </button>
 </div>
-</td>
-</tr>
 
-</tbody>
-
-</table>
+</div>
 
 </div>
 

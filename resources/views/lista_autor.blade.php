@@ -7,11 +7,12 @@
 <link rel="stylesheet" href="{{ asset('src/output.css') }}">
 </head>
 
-<body class="bg-slate-900 min-h-screen p-10 text-white">
+<body class="bg-slate-900 text-white">
 
-<div class="max-w-5xl mx-auto">
+<div class="flex min-h-screen">
 
-<h1 class="text-3xl font-bold mb-8">Lista de Autores</h1>
+    {{-- SIDEBAR --}}
+    @include('components.sidebar')
 
 <div class="flex justify-end mb-6">
 
@@ -24,95 +25,47 @@ Agregar Autor
 
 <div class="overflow-x-auto bg-slate-800 rounded-xl shadow-lg">
 
-<table class="w-full text-sm text-left">
+        <div class="max-w-5xl mx-auto">
 
-<thead class="bg-slate-700 text-slate-200 uppercase text-xs">
-<tr>
-<th class="p-4">Nombre</th>
-<th class="p-4">Nacionalidad</th>
-<th class="p-4 text-center">Acciones</th>
-</tr>
-</thead>
+            <h1 class="text-3xl font-bold mb-8">Lista de Autores</h1>
 
-<tbody class="divide-y divide-slate-700">
+            <div class="overflow-x-auto bg-slate-800 rounded-xl shadow-lg">
 
-<tr class="hover:bg-slate-700 transition">
+                <table class="w-full text-sm text-left">
 
-<td class="p-4 font-semibold">
-Eiichiro Oda
-</td>
+                <thead class="bg-slate-700 text-slate-200 uppercase text-xs">
+                <tr>
+                    <th class="p-4">Nombre</th>
+                    <th class="p-4">Nacionalidad</th>
+                    <th class="p-4 text-center">Acciones</th>
+                </tr>
+                </thead>
 
-<td class="p-4 text-slate-300">
-Japón
-</td>
+                <tbody class="divide-y divide-slate-700">
+                    @foreach ($autores as $fila)
+                <tr class="hover:bg-slate-700 transition">
+                    <td class="p-4 font-semibold">{{ $fila->nombre }}</td>
+                    <td class="p-4 text-slate-300">{{ $fila->nacionalidad }}</td>
+                    <td class="p-4">
+                        <div class="flex justify-center">
+                            <button class="bg-blue-600 hover:bg-blue-700 px-4 py-1 rounded-md text-sm">
+                                Editar
+                            </button>
+                        </div>
+                    </td>
+                </tr>
 
-<td class="p-4">
+                 @endforeach
 
-<div class="flex justify-center">
+                </tbody>
 
-<button class="bg-blue-600 hover:bg-blue-700 px-4 py-1 rounded-md text-sm transition">
-Editar
-</button>
+                </table>
 
-</div>
+            </div>
 
-</td>
+        </div>
 
-</tr>
-
-<tr class="hover:bg-slate-700 transition">
-
-<td class="p-4 font-semibold">
-Masashi Kishimoto
-</td>
-
-<td class="p-4 text-slate-300">
-Japón
-</td>
-
-<td class="p-4">
-
-<div class="flex justify-center">
-
-<button class="bg-blue-600 hover:bg-blue-700 px-4 py-1 rounded-md text-sm transition">
-Editar
-</button>
-
-</div>
-
-</td>
-
-</tr>
-
-<tr class="hover:bg-slate-700 transition">
-
-<td class="p-4 font-semibold">
-Akira Toriyama
-</td>
-
-<td class="p-4 text-slate-300">
-Japón
-</td>
-
-<td class="p-4">
-
-<div class="flex justify-center">
-
-<button class="bg-blue-600 hover:bg-blue-700 px-4 py-1 rounded-md text-sm transition">
-Editar
-</button>
-
-</div>
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
+    </div>
 
 </div>
 
