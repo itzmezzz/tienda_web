@@ -7,56 +7,68 @@
 <link rel="stylesheet" href="{{ asset('src/output.css') }}">
 </head>
 
-<body class="bg-slate-900 min-h-screen p-10 text-white">
+<body class="bg-slate-900 text-white">
 
-<div class="max-w-5xl mx-auto">
+<div class="flex min-h-screen">
 
-<h1 class="text-3xl font-bold mb-8">Lista de Categorías</h1>
+    {{-- SIDEBAR --}}
+    @include('components.sidebar')
 
-<div class="overflow-x-auto bg-slate-800 rounded-xl shadow-lg">
+    {{-- CONTENIDO --}}
+    <div class="flex-1 p-10">
 
-<table class="w-full text-sm text-left">
+        <div class="max-w-5xl mx-auto">
 
-<thead class="bg-slate-700 text-slate-200 uppercase text-xs">
-<tr>
-<th class="p-4">Nombre Categoría</th>
-<th class="p-4 text-center">Acciones</th>
-</tr>
-</thead>
+            <h1 class="text-3xl font-bold mb-8">Lista de Categorías</h1>
 
-<tbody class="divide-y divide-slate-700">
+            <div class="overflow-x-auto bg-slate-800 rounded-xl shadow-lg">
 
-@foreach($categorias as $fila)
+                <table class="w-full text-sm text-left">
 
-<tr class="hover:bg-slate-700 transition">
+                <thead class="bg-slate-700 text-slate-200 uppercase text-xs">
+                <tr>
+                    <th class="p-4">Nombre Categoría</th>
+                    <th class="p-4 text-center">Acciones</th>
+                </tr>
+                </thead>
 
-<td class="p-4 font-semibold">
-{{ $fila->nombre }}
-</td>
+                <tbody class="divide-y divide-slate-700">
 
-<td class="p-4">
-<div class="flex justify-center gap-3">
+                @foreach($categorias as $fila)
 
-<button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-md text-sm">
-Editar
-</button>
+                <tr class="hover:bg-slate-700 transition">
 
-<button class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded-md text-sm">
-Eliminar
-</button>
+                    <td class="p-4 font-semibold">
+                        {{ $fila->nombre }}
+                    </td>
 
-</div>
-</td>
+                    <td class="p-4">
+                        <div class="flex justify-center gap-3">
 
-</tr>
+                            <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-md text-sm">
+                                Editar
+                            </button>
 
-@endforeach
+                            <button class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded-md text-sm">
+                                Eliminar
+                            </button>
 
-</tbody>
+                        </div>
+                    </td>
 
-</table>
+                </tr>
 
-</div>
+                @endforeach
+
+                </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 

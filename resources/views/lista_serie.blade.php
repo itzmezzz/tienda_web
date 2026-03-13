@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>form serie</title>
-<link rel="stylesheet" href="src/output.css">
+<link rel="stylesheet" href="{{ asset('src/output.css') }}">
 </head>
 
 <body class="bg-slate-900 min-h-screen p-10 text-white">
 
 <div class="max-w-5xl mx-auto">
-
+ @include('components.sidebar')
 <h1 class="text-3xl font-bold mb-8">Crear Serie</h1>
 
 <div class="bg-slate-800 p-8 rounded-xl shadow-lg">

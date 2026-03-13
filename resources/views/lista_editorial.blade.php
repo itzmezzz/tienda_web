@@ -7,7 +7,15 @@
 <link rel="stylesheet" href="{{ asset('src/output.css') }}">
 </head>
 
-<body class="bg-slate-900 min-h-screen p-10 text-white">
+<body class="bg-slate-900 text-white">
+
+<div class="flex min-h-screen">
+
+{{-- SIDEBAR --}}
+@include('components.sidebar')
+
+{{-- CONTENIDO --}}
+<div class="flex-1 p-10">
 
 <div class="max-w-5xl mx-auto">
 
@@ -26,56 +34,36 @@
 
 <tbody class="divide-y divide-slate-700">
 
+@foreach($editoriales as $editorial)
+
 <tr class="hover:bg-slate-700 transition">
-<td class="p-4 font-semibold">Shueisha</td>
+
+<td class="p-4 font-semibold">
+{{ $editorial->nombre }}
+</td>
 
 <td class="p-4">
 <div class="flex justify-center gap-3">
 
-<button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-md text-sm">
+<a href="}}"
+class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-md text-sm">
 Editar
-</button>
-
-
+</a>
 
 </div>
 </td>
+
 </tr>
 
-<tr class="hover:bg-slate-700 transition">
-<td class="p-4 font-semibold">Kodansha</td>
-
-<td class="p-4">
-<div class="flex justify-center gap-3">
-
-<button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-md text-sm">
-Editar
-</button>
-
-
-</div>
-</td>
-</tr>
-
-<tr class="hover:bg-slate-700 transition">
-<td class="p-4 font-semibold">Shogakukan</td>
-
-<td class="p-4">
-<div class="flex justify-center gap-3">
-
-<button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-md text-sm">
-Editar
-</button>
-
-
-
-</div>
-</td>
-</tr>
+@endforeach
 
 </tbody>
 
 </table>
+
+</div>
+
+</div>
 
 </div>
 
