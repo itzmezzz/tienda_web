@@ -1,5 +1,7 @@
 <aside class="w-72 bg-admin-sidebar border-r border-slate-700 flex flex-col transition-all duration-300" id="sidebar">
             <!-- Logo -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
             <div class="h-16 flex items-center px-6 border-b border-slate-700">
                 <div class="w-10 h-10 bg-gradient-to-br from-admin-accent to-pink-600 rounded-xl flex items-center justify-center mr-3 shadow-lg shadow-red-500/20">
                     <i class="fas fa-book-open text-white text-lg"></i>
