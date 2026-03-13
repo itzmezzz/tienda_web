@@ -7,6 +7,7 @@ use App\Http\Controllers\AutoreController;
 use App\Http\Controllers\SerieController;
 use App\Http\Controllers\EditorialController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
 use Laravel\Socialite\Facades\Socialite;
 
 Route::get('/', function () {
@@ -29,6 +30,10 @@ Route::get('/google-callback', [UserController::class, 'handleGoogleCallback']);
 //producto
 Route::get('/producto/form',[ProductoController::class, 'nuevo'])->name('producto.nuevo');
 Route::post('/producto/guardar',[ProductoController::class, 'guardar'])->name('producto.guardar');
+Route::get('/producto/lista',[ProductoController::class, 'lista'])->name('producto.lista');
+Route::get('/buscar', [ProductoController::class, 'buscar'])->name('producto.buscar');
+Route::get('/producto/live-search', [ProductoController::class, 'liveSearch'])->name('producto.liveSearch');
+
 //autores
 
 Route::get('/autores/form',[AutoreController::class, 'nuevo'])->name('autores.nuevo');
@@ -40,3 +45,8 @@ Route::post('/series/guardar',[SerieController::class, 'guardar'])->name('serie.
 //editoriales
 Route::get('/editorial/form',[EditorialController::class, 'nuevo'])->name('editorial.nuevo');
 Route::post('/editorial/guardar',[EditorialController::class, 'guardar'])->name('editorial.guardar');
+
+//dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware('auth')
+    ->name('dashboard');

@@ -12,4 +12,7 @@ class AutoreController extends Controller
         $autores->nacionalidad = $req->nacionalidad;
         $autores->save();
 }
+function nuevo(){
+    return view('form_aut');
+}
 }
