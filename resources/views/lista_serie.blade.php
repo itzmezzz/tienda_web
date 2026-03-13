@@ -7,7 +7,15 @@
 <link rel="stylesheet" href="{{ asset('src/output.css') }}">
 </head>
 
-<body class="bg-slate-900 min-h-screen p-10 text-white">
+<body class="bg-slate-900 text-white">
+
+<div class="flex min-h-screen">
+
+{{-- SIDEBAR --}}
+@include('components.sidebar')
+
+{{-- CONTENIDO --}}
+<div class="flex-1 p-10">
 
 <div class="max-w-7xl mx-auto">
 
@@ -38,7 +46,6 @@ Agregar Serie
 <tbody class="divide-y divide-slate-700">
 
 <tr class="hover:bg-slate-700 transition">
-
 <td class="p-4 font-semibold"></td>
 <td class="p-4 text-slate-300"></td>
 <td class="p-4"></td>
@@ -56,34 +63,15 @@ Eliminar
 
 </div>
 </td>
-
-</tr>
-
-<tr class="hover:bg-slate-700 transition">
-
-<td class="p-4 font-semibold"></td>
-<td class="p-4 text-slate-300"></td>
-<td class="p-4"></td>
-
-<td class="p-4">
-<div class="flex gap-3 justify-center">
-
-<button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-md text-sm">
-Editar
-</button>
-
-<button class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded-md text-sm">
-Eliminar
-</button>
-
-</div>
-</td>
-
 </tr>
 
 </tbody>
 
 </table>
+
+</div>
+
+</div>
 
 </div>
 
