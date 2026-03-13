@@ -13,7 +13,8 @@ class ProductoController extends Controller
     $categoria = Categoria::all();
     $serie = Serie::all();
     $editorial = Editorial::all();
-    return view('form_prod', compact('categoria','serie','editorial'));
+    $autor = Autor::all();
+    return view('form_prod', compact('categoria','serie','editorial', 'autor'));
     }
 
     function guardar(Request $req){
@@ -24,7 +25,8 @@ class ProductoController extends Controller
     $producto->stock = $req->stock;
     $producto->numero_tomo = $req->numero_tomo;
     $producto->isbn = $req->isbn;
-     $producto->id_categoria = $req->id_categoria;
+    $producto->id_autor = $req->id_autor;
+    $producto->id_categoria = $req->id_categoria;
     $producto->id_serie = $req->id_serie;
     $producto->id_editorial = $req->id_editorial;
     // Guardar la imagen si se subió

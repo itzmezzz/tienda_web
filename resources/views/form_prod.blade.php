@@ -19,7 +19,15 @@
     <label>ISBN</label>
     <input type="text" name="isbn" required>
 
-    
+    <label>Autor</label>
+    <select name="id_autor" required>
+        <option value="" >Seleccionar</option>
+        @foreach($autor as $fila)
+            <option value="{{ $fila->id }}">
+                {{ $fila->nombre }}
+            </option>
+        @endforeach
+    </select>
 
     <label>Categoría</label>
     <select name="id_categoria" required>

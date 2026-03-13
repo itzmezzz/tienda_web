@@ -47,7 +47,9 @@
 
 <tr class="hover:bg-slate-700 transition">
 <td class="p-4">
-<img src="https://via.placeholder.com/60" class="w-14 h-20 object-cover rounded">
+<img src="{{ $producto->imagen ? asset('productos/' . $producto->imagen) : 'https://via.placeholder.com/150' }}" 
+    alt="Imagen del producto" 
+    class="w-14 h-20 object-cover rounded">
 </td>
 
 <td class="p-4 font-semibold"></td>
