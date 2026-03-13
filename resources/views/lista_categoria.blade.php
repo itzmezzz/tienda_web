@@ -14,8 +14,18 @@
     {{-- SIDEBAR --}}
     @include('components.sidebar')
 
-    {{-- CONTENIDO --}}
-    <div class="flex-1 p-10">
+
+
+<div class="flex justify-end mb-6">
+
+<a href="{{ route('categoria.nueva') }}"
+class="bg-green-600 hover:bg-green-700 px-5 py-2 rounded-md text-sm font-medium">
+Agregar Categoria
+</a>
+
+</div>
+
+<div class="overflow-x-auto bg-slate-800 rounded-xl shadow-lg">
 
         <div class="max-w-5xl mx-auto">
 

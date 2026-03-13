@@ -21,5 +21,5 @@ class SerieController extends Controller
 function lista(){
     $series = Serie::with('categoria')->get();
     return view('lista_serie', compact('series'));
-
-}}
+}
+}

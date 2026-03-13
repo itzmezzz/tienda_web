@@ -12,12 +12,9 @@
 
 <body class="bg-slate-900 text-white">
 
-<div class="flex min-h-screen">
-    
-    {{-- SIDEBAR --}}
-    @include('components.sidebar')
-    {{-- HEADER --}}
-    
+
+
+<form action="{{ route('producto.buscar') }}" method="GET" class="relative w-64 mb-6">
 
     {{-- CONTENIDO --}}
     <div class="flex-1 p-10">
@@ -35,15 +32,16 @@
                     placeholder="Buscar manga, autor..."
                     class="border rounded-l px-4 py-2 w-full">
 
-                    <button type="submit"
-                    class="bg-blue-500 text-white px-4 rounded-r">
-                    Buscar
-                    </button>
-                    
-                </div>
+<div class="flex justify-end mb-6">
 
-            </form>
-           
+<a href="{{ route('producto.nuevo') }}"
+class="bg-green-600 hover:bg-green-700 px-1 py-2 rounded-md text-sm font-medium">
+Agregar Manga
+</a>
+
+</div>
+<div class="overflow-x-auto bg-slate-800 rounded-xl shadow-lg">
+    
 
             {{-- TABLA --}}
             <div class="overflow-x-auto bg-slate-800 rounded-xl shadow-lg">

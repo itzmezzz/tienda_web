@@ -27,7 +27,7 @@ class="w-full mb-8 px-4 py-3 text-md rounded-lg bg-slate-700 border border-slate
 <input type="submit" value="Guardar"
 class="bg-green-600 hover:bg-green-700 px-6 py-2 rounded-lg cursor-pointer font-medium transition">
 
-<a href="/dashboard"
+<a href="{{ route('editorial.lista') }}"
 class="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-lg text-white font-medium transition">
 Cancelar
 </a>

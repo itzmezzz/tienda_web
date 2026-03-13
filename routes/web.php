@@ -17,6 +17,8 @@ Route::get('/', function () {
 Route::get('/categoria/form', function () {
     return view('form_cat');
 });
+Route::get('/categoria/form',[CategoriaController::class, 'nuevo'])->name('categoria.nueva');
+
 Route::post('/categoria/guardar',[CategoriaController::class, 'guardar'])->name('categoria.guardar');
 Route::get('/categoria/lista',[CategoriaController::class, 'lista'])->name('categoria.lista');
 
