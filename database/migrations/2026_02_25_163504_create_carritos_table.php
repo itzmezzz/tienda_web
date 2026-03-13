@@ -17,8 +17,9 @@ return new class extends Migration
           ->nullable()
           ->constrained('users')
           ->cascadeOnDelete();
+          $table->enum('estado', ['activo', 'finalizado'])->default('activo');
 
-    $table->timestamp('created_at')->useCurrent();
+        $table->timestamps();
             
         });
     }
