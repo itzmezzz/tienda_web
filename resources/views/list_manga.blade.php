@@ -1,16 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('src/output.css') }}">
-    <title>Document</title>
-</head>
-<body>
-    <!DOCTYPE html>
-<html lang="en">
-<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lista de Mangas</title>
@@ -36,9 +26,11 @@
 <th class="p-4">Stock</th>
 <th class="p-4">Tomo</th>
 <th class="p-4">ISBN</th>
+<th class="p-4">Autor</th>
 <th class="p-4">Categoría</th>
 <th class="p-4">Serie</th>
 <th class="p-4">Editorial</th>
+<th class="p-4">Estado</th>
 <th class="p-4 text-center">Acciones</th>
 </tr>
 </thead>
@@ -46,8 +38,10 @@
 <tbody class="divide-y divide-slate-700">
 
 <tr class="hover:bg-slate-700 transition">
+
 <td class="p-4">
-<img src="https://via.placeholder.com/60" class="w-14 h-20 object-cover rounded">
+<img src="https://via.placeholder.com/60"
+class="w-14 h-20 object-cover rounded-md border border-slate-600">
 </td>
 
 <td class="p-4 font-semibold"></td>
@@ -59,20 +53,28 @@
 <td class="p-4"></td>
 <td class="p-4"></td>
 <td class="p-4"></td>
+<td class="p-4"></td>
+
+<td class="p-4">
+<span class="bg-green-600 text-white px-3 py-1 rounded-full text-xs">
+Disponible
+</span>
+</td>
 
 <td class="p-4">
 <div class="flex gap-3 justify-center">
 
-<button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-md text-sm">
+<button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-md text-sm transition">
 Editar
 </button>
 
-<button class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded-md text-sm">
+<button class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded-md text-sm transition">
 Eliminar
 </button>
 
 </div>
 </td>
+
 </tr>
 
 </tbody>
@@ -83,7 +85,5 @@ Eliminar
 
 </div>
 
-</body>
-</html>
 </body>
 </html>
