@@ -9,30 +9,31 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    // formulario de login
-    function showLoginForm()
+    // Formulario de login
+    public function showLoginForm()
     {
         return view('auth.login');
     }
 
-    //Login tradicional
-    function login(Request $request)
+    // Login tradicional
+    public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            $user = Auth::user();
 
-            //VALIDAR SI VERIFICÓ EMAIL
-            if (!Auth::user()->hasVerifiedEmail()) {
+            // VALIDAR SI VERIFICÓ EMAIL
+            if (!$user->hasVerifiedEmail()) {
                 Auth::logout();
-
                 return redirect('/email/verify')->withErrors([
                     'email' => 'Debes verificar tu correo antes de iniciar sesión'
                 ]);
             }
 
-            return redirect()->intended('/dashboard');
+            // Redirección según rol: 0 -> Dashboard, 1 -> Tienda
+            return redirect($user->rol == 0 ? '/dashboard' : '/tienda');
         }
 
         return back()->withErrors([
@@ -40,8 +41,8 @@ class UserController extends Controller
         ]);
     }
 
-    //Registro tradicional
-    function register(Request $request)
+    // Registro tradicional
+    public function register(Request $request)
     {
         $request->validate([
             'name' => 'required',
@@ -57,17 +58,17 @@ class UserController extends Controller
             'estatus' => 'A'
         ]);
 
-        // AQUÍ SE ENVÍA EL CORREO
+        // Envío de correo de verificación
         $user->sendEmailVerificationNotification();
 
-        //logear usuario
+        // Loguear usuario temporalmente para que vea la vista de verificación
         Auth::login($user);
 
         return redirect('/email/verify');
     }
 
-    //Logout
-    function logout(Request $request)
+    // Logout
+    public function logout(Request $request)
     {
         Auth::logout();
         $request->session()->invalidate();
@@ -76,30 +77,36 @@ class UserController extends Controller
         return redirect('/');
     }
 
-    // Google
-    function redirectToGoogle()
+    // Google Redirect
+    public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
     }
 
-    function handleGoogleCallback()
+    // Google Callback
+    public function handleGoogleCallback()
     {
-        $googleUser = Socialite::driver('google')->stateless()->user();
+        try {
+            $googleUser = Socialite::driver('google')->stateless()->user();
+        } catch (\Exception $e) {
+            return redirect('/login')->withErrors(['email' => 'Hubo un problema al autenticar con Google.']);
+        }
 
+        // Buscamos el usuario o lo creamos
         $user = User::firstOrCreate(
             ['email' => $googleUser->getEmail()],
             [
                 'name' => $googleUser->getName(),
                 'google_id' => $googleUser->getId(),
-                'rol' => 1
+                'rol' => 1, // Por defecto cliente
+                'estatus' => 'A',
+                'email_verified_at' => now(), // Al venir de Google, el email ya es válido
             ]
         );
 
         Auth::login($user);
-        if($user == '0'){
-            return redirect('/dashboard');
-        }else{}
 
-        return redirect('/tienda');
+        // Redirección según rol: 0 -> Dashboard, 1 -> Tienda
+        return redirect($user->rol == 0 ? '/dashboard' : '/tienda');
     }
 }

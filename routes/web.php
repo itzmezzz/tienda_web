@@ -14,6 +14,9 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 
 Route::get('/', [ProductoController::class, 'tienda']);
+Route::get('/welcome', function () {
+    return view('welcome');
+});
 //categoria
 Route::get('/categoria/form', function () {
     return view('form_cat');
@@ -39,8 +42,18 @@ Route::get('/email/verify', function () {
 
 // Procesar verificación
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    // Marca al usuario como verificado
     $request->fulfill();
-    return redirect('/dashboard');
+
+    // Obtenemos al usuario autenticado
+    $user = $request->user();
+
+    // Aplicamos la misma lógica de redirección
+    if ($user->rol == 0) {
+        return redirect('/dashboard');
+    }
+
+    return redirect('/tienda');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 
 // Reenviar correo
