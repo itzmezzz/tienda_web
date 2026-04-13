@@ -10,6 +10,8 @@ class CategoriaController extends Controller
         $categoria = new Categoria();
         $categoria->nombre = $req->nombre;
         $categoria->save();
+        return redirect()->route('categoria.lista')
+        ->with('success','Categoria guardada correctamente');
 }
 function lista(){
     $categorias = Categoria::all();
@@ -17,6 +19,23 @@ function lista(){
 }
 function nuevo(){
     return view('form_cat');
+}
+function eliminar($id){
+    $categoria = Categoria::findOrFail($id);
+    $categoria->delete();
+    return redirect()->route('categoria.lista')
+    ->with('success','Categoria eliminada correctamente');
+}
+function editar($id){
+    $categoria = Categoria::findOrFail($id);
+    return view('editar_categoria', compact('categoria'));
+}
+function actualizar(Request $req, $id){
+    $categoria = Categoria::findOrFail($id);
+    $categoria->nombre = $req->nombre;
+    $categoria->save();
+    return redirect()->route('categoria.lista')
+    ->with('success','Categoria actualizada correctamente');
 }
 }
 

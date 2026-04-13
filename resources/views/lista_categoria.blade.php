@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="{{ asset('src/output.css') }}">
 </head>
 
-```html
+
 <body class="bg-slate-900 text-white">
 
 <div class="flex min-h-screen">
@@ -83,4 +83,4 @@
 </div>
 
 </body>
-```
+</html>
