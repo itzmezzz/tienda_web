@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lista de Mangas</title>
 <link rel="stylesheet" href="{{ asset('src/output.css') }}">
+
 </head>
 
 <body class="bg-slate-900 text-white">
@@ -108,13 +109,13 @@ class="w-14 h-20 object-cover rounded">
 <td class="p-4">
 <div class="flex gap-3 justify-center">
 
-<button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-md text-sm">
+<a href="{{ route('producto.editar', $fila->id) }}" class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded-md text-sm">
 Editar
-</button>
+</a>
 
-<button class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded-md text-sm">
+<a href="{{ route('producto.eliminar', $fila->id) }}" class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded-md text-sm">
 Eliminar
-</button>
+</a>
 
 </div>
 </td>

@@ -14,9 +14,25 @@ class EditorialController extends Controller
         $editorial = new Editorial();
         $editorial->nombre = $req->nombre;
         $editorial->save();
+        return redirect()->route('editorial.lista');
 }
 function lista(){
     $editoriales = Editorial::all();
     return view('lista_editorial', compact('editoriales'));
+}
+function eliminar($id){
+    $editorial = Editorial::findOrFail($id);
+    $editorial->delete();
+    return redirect()->route('editorial.lista');
+}
+function editar($id){
+    $editorial = Editorial::findOrFail($id);
+    return view('editar_editorial', compact('editorial'));
+    }
+function actualizar(Request $req, $id){
+    $editorial = Editorial::findOrFail($id);
+    $editorial->nombre = $req->nombre;
+    $editorial->save();
+    return redirect()->route('editorial.lista');
 }
 }

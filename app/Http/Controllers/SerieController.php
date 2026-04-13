@@ -17,6 +17,7 @@ class SerieController extends Controller
         $series->descripcion = $req->descripcion;
         $series->id_categoria = $req->id_categoria;
         $series->save();
+        return redirect()->route('serie.lista');
 }
 function lista(){
     $series = Serie::with('categoria')->get();

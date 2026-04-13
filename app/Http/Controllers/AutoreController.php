@@ -11,6 +11,8 @@ class AutoreController extends Controller
         $autores->nombre = $req->nombre;
         $autores->nacionalidad = $req->nacionalidad;
         $autores->save();
+        return redirect()->route('autores.lista')
+        ->with('success','Autor guardado correctamente');
 }
 function nuevo(){
     return view('form_aut');

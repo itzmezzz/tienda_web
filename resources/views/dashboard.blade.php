@@ -47,15 +47,13 @@
                     <span class="font-medium">Dashboard</span>
                     <span class="ml-auto bg-admin-accent text-white text-xs px-2 py-0.5 rounded-full">Nuevo</span>
                 </a>
+
                 <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 transition-all duration-300 hover:bg-gradient-to-r hover:from-[rgba(230,57,70,0.15)] hover:to-transparent hover:border-l-[3px] hover:border-admin-accent hover:text-white group">
                     <i class="fas fa-shopping-cart w-5 text-center group-hover:text-admin-accent transition-colors"></i>
                     <span class="font-medium">Pedidos</span>
                     <span class="ml-auto bg-slate-700 text-slate-300 text-xs px-2 py-0.5 rounded-full">24</span>
                 </a>
-                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 transition-all duration-300 hover:bg-gradient-to-r hover:from-[rgba(230,57,70,0.15)] hover:to-transparent hover:border-l-[3px] hover:border-admin-accent hover:text-white group">
-                    <i class="fas fa-box w-5 text-center group-hover:text-admin-accent transition-colors"></i>
-                    <span class="font-medium">Productos</span>
-                </a>
+               
                 <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 transition-all duration-300 hover:bg-gradient-to-r hover:from-[rgba(230,57,70,0.15)] hover:to-transparent hover:border-l-[3px] hover:border-admin-accent hover:text-white group">
                     <i class="fas fa-users w-5 text-center group-hover:text-admin-accent transition-colors"></i>
                     <span class="font-medium">Clientes</span>
@@ -101,8 +99,8 @@
                 <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/50 hover:bg-slate-800 cursor-pointer transition-colors group">
                     <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=100" alt="Admin" class="w-10 h-10 rounded-full border-2 border-admin-accent">
                     <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-white truncate"></p>
-                        <p class="text-xs text-slate-500 truncate">Admin</p>
+                        <p class="text-sm font-medium text-white truncate">{{ Auth::user()->name }}</p>
+                        <p class="text-xs text-slate-500 truncate">{{ Auth::user()->email }}</p>
                     </div>
                     <i class="fas fa-chevron-right text-xs text-slate-500 group-hover:text-white transition-colors"></i>
                 </div>
