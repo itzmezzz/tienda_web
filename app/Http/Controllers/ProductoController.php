@@ -168,23 +168,50 @@ class ProductoController extends Controller
             'editorial'
         ])->get();
 
+        
+
         return view('vista_usuario', compact('productos'));
     }
-    public function catalogo()
-{
-    // Traemos los productos con sus relaciones (como ya lo hacías)
-    $productos = Producto::with([
-        'autor',
-        'serie',
-        'categoria',
-        'editorial'
-    ])->get();
+     public function buscarus(Request $req)
+    {
+        $query = $req->input('q');
 
-    // ESTA ES LA LÍNEA QUE TE FALTA:
-    $categorias = \App\Models\Categoria::all(); 
+        $productos = Producto::with([
+            'autor',
+            'serie',
+            'categoria',
+            'editorial'
+        ])
+        ->where(function($q) use ($query){
 
-    // Tienes que pasar AMBAS variables en el compact
+            $q->where('nombre','like',"%$query%")
+
+            ->orWhereHas('autor',function($q2) use ($query){
+                $q2->where('nombre','like',"%$query%");
+            })
+
+            ->orWhereHas('serie',function($q2) use ($query){
+                $q2->where('nombre','like',"%$query%");
+            })
+
+            ->orWhereHas('categoria',function($q2) use ($query){
+                $q2->where('nombre','like',"%$query%");
+            })
+
+            ->orWhereHas('editorial',function($q2) use ($query){
+                $q2->where('nombre','like',"%$query%");
+            });
+
+        })->get();
+
+        return view('vista_usuario', compact('productos','query'));
+    }
+     
+ public function catalogo()
+    {
+     $productos = Producto::all();
+    $categorias = \App\Models\Categoria::all(); // Asegúrate de que el modelo exista
     return view('catalogo', compact('productos', 'categorias'));
-}
+    }
 
 }
