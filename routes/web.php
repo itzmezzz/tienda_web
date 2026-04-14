@@ -13,6 +13,8 @@ use App\Http\Controllers\CarritoController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\DireccionController;
+use App\Http\Controllers\PagoController;
+use App\Http\Controllers\VentaController;
 
 Route::get('/', [ProductoController::class, 'tienda']);
 Route::get('/welcome', function () {
@@ -119,3 +121,22 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth'])->group(function () {
     Route::post('/perfil/direccion', [DireccionController::class, 'guardar'])->name('direccion.guardar');
 });
+
+Route::middleware(['auth'])->group(function () {
+    // Vista para elegir método de pago
+    Route::get('/checkout/pago/{id}', [PagoController::class, 'mostrarCheckout'])->name('checkout.pago');
+    
+    // Ruta para confirmar el pago (POST)
+    Route::post('/pago/confirmar/{id}', [PagoController::class, 'procesarRespuesta'])->name('pago.confirmar');
+});
+Route::middleware(['auth'])->group(function () {
+    // Procesa la creación de la venta
+    Route::post('/venta/crear', [VentaController::class, 'store'])->name('venta.store');
+    
+    // Ver historial de pedidos
+    Route::get('/mis-pedidos', [VentaController::class, 'misCompras'])->name('venta.index');
+});
+Route::get('/checkout/confirmar', function() {
+    // Retorna una vista donde el usuario elija su dirección antes de pagar
+    return view('tienda.confirmar_pedido'); 
+})->middleware('auth')->name('checkout.confirmacion');
