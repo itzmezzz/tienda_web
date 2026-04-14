@@ -110,30 +110,28 @@ function carrito() {
             });
         },
 
-            vaciar() {
-                fetch('/carrito/vaciar', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    }
-                })
-                .then(r => r.json())
-                .then(data => {
-                    if (data.success) {
-                        this.carrito = [];
-                    }
-                });
-            },
-           irAlCheckout() {
-    if (this.carrito.length === 0) {
-        alert("Tu carrito está vacío");
-        return;
-    }
-
-    // Redirigir a la vista de confirmación
-    // Si usas un archivo .js externo, usa la ruta manual: window.location.href = "/checkout/confirmar";
-    window.location.href = "{{ route('checkout.confirmacion') }}"; 
-}
+        vaciar() {
+            fetch('/carrito/vaciar', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    this.carrito = [];
+                }
+            });
+        },
+        irAlCheckout() {
+            if (this.carrito.length === 0) {
+                alert("Tu carrito está vacío");
+                return;
+            }
+            // Redirige a la ruta que definiste en web.php
+            window.location.href = "/checkout";
         }
     }
 }
