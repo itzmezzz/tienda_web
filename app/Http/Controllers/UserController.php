@@ -6,16 +6,17 @@ use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Carrito; 
+use App\Models\Producto; 
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
-    // Formulario de login
     public function showLoginForm()
     {
-        return view('auth.login');
+        return view('welcome');
     }
 
-    // Login tradicional
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -24,7 +25,6 @@ class UserController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
 
-            // VALIDAR SI VERIFICÓ EMAIL
             if (!$user->hasVerifiedEmail()) {
                 Auth::logout();
                 return redirect('/email/verify')->withErrors([
@@ -32,7 +32,9 @@ class UserController extends Controller
                 ]);
             }
 
-            // Redirección según rol: 0 -> Dashboard, 1 -> Tienda
+            // Sincronizar carrito al iniciar sesión tradicional
+            $this->sincronizarCarrito($user);
+
             return redirect($user->rol == 0 ? '/dashboard' : '/tienda');
         }
 
@@ -41,7 +43,6 @@ class UserController extends Controller
         ]);
     }
 
-    // Registro tradicional
     public function register(Request $request)
     {
         $request->validate([
@@ -58,32 +59,33 @@ class UserController extends Controller
             'estatus' => 'A'
         ]);
 
-        // Envío de correo de verificación
-        $user->sendEmailVerificationNotification();
+        try {
+            $user->sendEmailVerificationNotification();
+        } catch (\Exception $e) {
+            Log::error("Error SMTP: " . $e->getMessage());
+            Auth::login($user);
+            return redirect('/email/verify')->withErrors([
+                'email' => 'El usuario se creó pero no pudimos enviar el correo. Revisa tu configuración SMTP.'
+            ]);
+        }
 
-        // Loguear usuario temporalmente para que vea la vista de verificación
         Auth::login($user);
-
         return redirect('/email/verify');
     }
 
-    // Logout
     public function logout(Request $request)
     {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
         return redirect('/');
     }
 
-    // Google Redirect
     public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
     }
 
-    // Google Callback
     public function handleGoogleCallback()
     {
         try {
@@ -92,21 +94,50 @@ class UserController extends Controller
             return redirect('/login')->withErrors(['email' => 'Hubo un problema al autenticar con Google.']);
         }
 
-        // Buscamos el usuario o lo creamos
         $user = User::firstOrCreate(
             ['email' => $googleUser->getEmail()],
             [
                 'name' => $googleUser->getName(),
                 'google_id' => $googleUser->getId(),
-                'rol' => 1, // Por defecto cliente
+                'rol' => 1,
                 'estatus' => 'A',
-                'email_verified_at' => now(), // Al venir de Google, el email ya es válido
+                'email_verified_at' => now(), 
             ]
         );
 
         Auth::login($user);
+        
+        // Sincronizar carrito al iniciar sesión con Google
+        $this->sincronizarCarrito($user);
 
-        // Redirección según rol: 0 -> Dashboard, 1 -> Tienda
         return redirect($user->rol == 0 ? '/dashboard' : '/tienda');
+    }
+
+    // Método de sincronización (FUERA de handleGoogleCallback)
+    private function sincronizarCarrito($user) 
+    {
+        $carritoBD = Carrito::where('id_usuario', $user->id)
+                            ->where('estado', 'activo')
+                            ->with('detalles.producto') 
+                            ->first();
+
+        if ($carritoBD) {
+            $carritoSesion = [];
+            foreach ($carritoBD->detalles as $detalle) {
+                $prod = $detalle->producto;
+                // Verificamos que el producto exista para evitar errores
+                if ($prod) {
+                    $carritoSesion[$prod->id] = [
+                        'id' => $prod->id,
+                        'nombre' => $prod->nombre,
+                        'precio' => $prod->precio,
+                        'imagen' => asset('productos/' . $prod->imagen),
+                        'numero_tomo' => $prod->numero_tomo,
+                        'cantidad' => $detalle->cantidad
+                    ];
+                }
+            }
+            session()->put('carrito', $carritoSesion);
+        }
     }
 }

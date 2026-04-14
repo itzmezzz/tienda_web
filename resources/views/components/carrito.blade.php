@@ -1,7 +1,7 @@
 <div 
   x-data="carrito()" 
   x-init="init()" 
-  @agregar-al-carrito.window="agregar($event.detail)"
+  @agregar-al-carrito.window="carrito = Object.values($event.detail)"
   class="relative"
 >
   <button @click="abrir = !abrir" 

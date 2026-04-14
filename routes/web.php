@@ -12,6 +12,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\CarritoController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
+use App\Http\Controllers\DireccionController;
 
 Route::get('/', [ProductoController::class, 'tienda']);
 Route::get('/welcome', function () {
@@ -114,3 +115,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified']);
 
+//direcciones
+Route::middleware(['auth'])->group(function () {
+    Route::post('/perfil/direccion', [DireccionController::class, 'guardar'])->name('direccion.guardar');
+});
