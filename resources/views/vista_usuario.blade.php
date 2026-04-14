@@ -18,25 +18,39 @@
         <h1 class="text-2xl font-black text-red-600 tracking-tighter">MangaHouse</h1>
         
         <nav class="flex items-center space-x-8">
-            <form action="/buscar" method="GET" class="hidden md:block">
+            
+
+            <div class="flex items-center space-x-6 font-bold text-sm uppercase tracking-widest">
+                <form action="/live-search" method="GET" class="hidden md:block">
                 <div class="flex items-center bg-gray-900 border border-gray-700 rounded-full overflow-hidden focus-within:ring-2 focus-within:ring-red-500 transition">
                     <input 
                         type="text"
                         name="q"
                         placeholder="Buscar manga..."
-                        class="bg-transparent text-white px-4 py-1.5 w-64 outline-none text-sm"
+                        class=" text-black px-4 py-1.5 w-64 outline-none text-sm"
                     >
-                    <button type="submit" class="bg-gray-800 px-4 py-1.5 hover:bg-red-600 transition text-white">
+                    <button type="submit" class="bg-gray-800 px-4 py-1.5 hover:bg-red-600 transition text-black">
                         🔍
                     </button>
                 </div>
             </form>
-
-            <div class="flex items-center space-x-6 font-bold text-sm uppercase tracking-widest">
                 <a href="#" class="text-white hover:text-red-500 transition">Inicio</a>
                 <a href="#" class="text-white hover:text-red-500 transition">Catálogo</a>
                 <a href="#" class="text-white hover:text-red-500 transition">Ofertas</a>
                 <x-carrito/>
+                <nav>
+    @auth
+        <form action="{{ route('logout') }}" method="POST" class="inline">
+            @csrf
+            <button type="submit">Cerrar Sesión</button>
+        </form>
+    @endauth
+
+    @guest
+        <a href="{{ route('login') }}">Iniciar Sesión</a>
+       
+    @endguest
+</nav>
             </div>
 
             
@@ -67,18 +81,11 @@
                 <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center">
 
                     <button
-                        @click="agregar({
-                            id: {{ $producto->id }},
-                            nombre: @js($producto->nombre),
-                            precio: {{ $producto->precio }},
-                            imagen: @js($producto->imagen ? asset('productos/'.$producto->imagen) : asset('src/placeholder.png')),
-                            numero_tomo: {{ $producto->numero_tomo }}
-                        })"
-                        class="bg-white text-black px-4 py-2 rounded-full font-bold text-sm transform scale-90 group-hover:scale-100 transition"
-                    >
-                        🛒 Agregar
-                    </button>
-
+    @click="agregar({{ $producto->id }})"
+    class="mt-3 w-full bg-black text-white py-2 rounded-lg hover:bg-red-500 transition"
+>
+    Agregar al carrito
+</button>
                 </div>
             </div>
 
@@ -119,118 +126,6 @@
     </div>
 </section>
 
-    <script>
-    function carrito() {
-        return {
-            abrir: false,
-            carrito: [],
-
-            init() {
-                this.obtenerCarrito();
-            },
-
-            get total() {
-                return this.carrito.reduce(
-                    (sum, item) => sum + (Number(item.precio) * item.cantidad),
-                    0
-                );
-            },
-
-            get cantidadTotal() {
-                return this.carrito.reduce(
-                    (sum, item) => sum + Number(item.cantidad),
-                    0
-                );
-            },
-
-            obtenerCarrito() {
-                fetch('/carrito')
-                    .then(r => r.json())
-                    .then(data => {
-                        this.carrito = data.carrito ? Object.values(data.carrito) : [];
-                    })
-                    .catch(err => console.error("Error al obtener carrito:", err));
-            },
-
-            agregar(producto) {
-                fetch(`/carrito/agregar/${producto.id}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify(producto)
-                })
-                .then(r => r.json())
-                .then(data => {
-                    if (data.success) {
-                        this.carrito = data.carrito ? Object.values(data.carrito) : [];
-                    }
-                })
-                .catch(err => console.error("Error al agregar:", err));
-            },
-
-            aumentar(id) {
-                fetch(`/carrito/agregar/${id}`, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    }
-                })
-                .then(r => r.json())
-                .then(data => {
-                    if (data.success) {
-                        this.carrito = data.carrito ? Object.values(data.carrito) : [];
-                    }
-                });
-            },
-
-            disminuir(id) {
-                fetch(`/carrito/eliminar-unidad/${id}`, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    }
-                })
-                .then(r => r.json())
-                .then(data => {
-                    if (data.success) {
-                        this.carrito = data.carrito ? Object.values(data.carrito) : [];
-                    }
-                });
-            },
-
-            eliminar(id) {
-                fetch(`/carrito/eliminar/${id}`, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    }
-                })
-                .then(r => r.json())
-                .then(data => {
-                    if (data.success) {
-                        this.carrito = data.carrito ? Object.values(data.carrito) : [];
-                    }
-                });
-            },
-
-            vaciar() {
-                fetch('/carrito/vaciar', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    }
-                })
-                .then(r => r.json())
-                .then(data => {
-                    if (data.success) {
-                        this.carrito = [];
-                    }
-                });
-            }
-        }
-    }
-    </script>
+    <script src="{{ asset('js/carrito.js') }}"></script>
 </body>
 </html>
