@@ -42,7 +42,7 @@
     </div>
 </div>
                 <a href="#" class="text-white hover:text-orange-500 transition">Inicio</a>
-                <a href="#" class="text-white hover:text-orange-500 transition">Catálogo</a>
+                <a href="{{ route('catalogo') }}" class="text-white hover:text-orange-500 transition">Catálogo</a>
                 <a href="#" class="text-white hover:text-orange-500 transition">Ofertas</a>
                 
                 <x-carrito/>
