@@ -170,6 +170,21 @@ class ProductoController extends Controller
 
         return view('vista_usuario', compact('productos'));
     }
-    
+    public function catalogo()
+{
+    // Traemos los productos con sus relaciones (como ya lo hacías)
+    $productos = Producto::with([
+        'autor',
+        'serie',
+        'categoria',
+        'editorial'
+    ])->get();
+
+    // ESTA ES LA LÍNEA QUE TE FALTA:
+    $categorias = \App\Models\Categoria::all(); 
+
+    // Tienes que pasar AMBAS variables en el compact
+    return view('catalogo', compact('productos', 'categorias'));
+}
 
 }

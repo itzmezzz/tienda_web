@@ -113,6 +113,10 @@ Route::post('/carrito/eliminar/{producto}', [CarritoController::class, 'eliminar
 Route::post('/carrito/vaciar', [CarritoController::class, 'vaciar'])->name('carrito.vaciar');
 Route::post('/carrito/eliminar-unidad/{producto}', [CarritoController::class, 'eliminarUnidad'])->name('carrito.eliminarUnidad');
 
+
+//catalogo
+Route::get('/catalogo', [ProductoController::class, 'catalogo'])->name('catalogo');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified']);
