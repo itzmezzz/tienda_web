@@ -124,4 +124,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/editorial/eliminar/{id}', [EditorialController::class, 'eliminar'])->name('editorial.eliminar');
     Route::get('/editorial/editar/{id}', [EditorialController::class, 'editar'])->name('editorial.editar');
     Route::put('/editorial/actualizar/{id}', [EditorialController::class, 'actualizar'])->name('editorial.actualizar');
+
+
+
+    //catalogo
+    Route::get('/catalogo', [ProductoController::class, 'catalogo'])->name('catalogo'); 
 });

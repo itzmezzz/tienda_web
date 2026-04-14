@@ -168,6 +168,8 @@ class ProductoController extends Controller
             'editorial'
         ])->get();
 
+        
+
         return view('vista_usuario', compact('productos'));
     }
      public function buscarus(Request $req)
@@ -204,6 +206,12 @@ class ProductoController extends Controller
 
         return view('vista_usuario', compact('productos','query'));
     }
-    
+     
+ public function catalogo()
+    {
+     $productos = Producto::all();
+    $categorias = \App\Models\Categoria::all(); // Asegúrate de que el modelo exista
+    return view('catalogo', compact('productos', 'categorias'));
+    }
 
 }
