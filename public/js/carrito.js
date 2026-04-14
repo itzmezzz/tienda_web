@@ -1,12 +1,12 @@
-<script>
+
     function carrito() {
         return {
-            abrir: false;
+            abrir: false,
             carrito: [],
 
             init() {
                 this.obtenerCarrito();
-            };
+            },
 
             get total() {
                 return this.carrito.reduce(
@@ -110,4 +110,5 @@
             }
         }
     }
-    </script>
+
+    
