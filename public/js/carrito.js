@@ -131,7 +131,7 @@ function carrito() {
                 return;
             }
             // Redirige a la ruta que definiste en web.php
-            window.location.href = "/checkout";
+            window.location.href = "checkout/confirmar";
         }
     }
 }

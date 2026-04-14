@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\DireccionUsuario; // Asegúrate de crear este modelo
+use App\Models\DireccionUsuario; 
 use Illuminate\Support\Facades\Auth;
 
 class DireccionController extends Controller
@@ -15,14 +15,43 @@ class DireccionController extends Controller
             'ciudad' => 'required|string|max:100',
             'estado' => 'required|string|max:100',
             'codigo_postal' => 'required|string|max:20',
+            'pais' => 'required|string|max:100', // Agregado ya que está en tu tabla
         ]);
 
-        // Guardamos o actualizamos la dirección del usuario autenticado
+        // Usamos updateOrCreate para que el usuario solo tenga una dirección principal
         DireccionUsuario::updateOrCreate(
-            ['id_usuario' => Auth::id()], // Condición para buscar
-            $request->all()              // Datos para insertar/actualizar
+            ['id_usuario' => Auth::id()], 
+            [
+                'calle' => $request->calle,
+                'ciudad' => $request->ciudad,
+                'estado' => $request->estado,
+                'codigo_postal' => $request->codigo_postal,
+                'pais' => $request->pais,
+                'referencia' => $request->referencia,
+            ]
         );
 
-        return back()->with('success', 'Dirección actualizada correctamente.');
+        return back()->with('success', 'Dirección guardada correctamente.');
     }
+
+    // NUEVO MÉTODO: Para cargar la vista de confirmación con datos
+    public function mostrarConfirmacion()
+    {
+        $direcciones = DireccionUsuario::where('id_usuario', Auth::id())->get();
+        $carrito = session()->get('carrito', []);
+
+        $total = collect($carrito)->sum(function($item) {
+            return $item['precio'] * $item['cantidad'];
+        });
+
+        return view('checkout', compact('direcciones', 'total'));
+    }
+    public function index()
+{
+    // Buscamos si el usuario ya tiene una dirección
+    $direccion = DireccionUsuario::where('id_usuario', Auth::id())->first();
+    
+    // Retornamos la vista donde estará el formulario
+    return view('direcciones', compact('direccion'));
+}
 }
