@@ -18,25 +18,39 @@
         <h1 class="text-2xl font-black text-red-600 tracking-tighter">MangaHouse</h1>
         
         <nav class="flex items-center space-x-8">
-            <form action="/buscar" method="GET" class="hidden md:block">
+            
+
+            <div class="flex items-center space-x-6 font-bold text-sm uppercase tracking-widest">
+                <form action="/live-search" method="GET" class="hidden md:block">
                 <div class="flex items-center bg-gray-900 border border-gray-700 rounded-full overflow-hidden focus-within:ring-2 focus-within:ring-red-500 transition">
                     <input 
                         type="text"
                         name="q"
                         placeholder="Buscar manga..."
-                        class="bg-transparent text-white px-4 py-1.5 w-64 outline-none text-sm"
+                        class=" text-black px-4 py-1.5 w-64 outline-none text-sm"
                     >
-                    <button type="submit" class="bg-gray-800 px-4 py-1.5 hover:bg-red-600 transition text-white">
+                    <button type="submit" class="bg-gray-800 px-4 py-1.5 hover:bg-red-600 transition text-black">
                         🔍
                     </button>
                 </div>
             </form>
-
-            <div class="flex items-center space-x-6 font-bold text-sm uppercase tracking-widest">
                 <a href="#" class="text-white hover:text-red-500 transition">Inicio</a>
                 <a href="#" class="text-white hover:text-red-500 transition">Catálogo</a>
                 <a href="#" class="text-white hover:text-red-500 transition">Ofertas</a>
                 <x-carrito/>
+                <nav>
+    @auth
+        <form action="{{ route('logout') }}" method="POST" class="inline">
+            @csrf
+            <button type="submit">Cerrar Sesión</button>
+        </form>
+    @endauth
+
+    @guest
+        <a href="{{ route('login') }}">Iniciar Sesión</a>
+       
+    @endguest
+</nav>
             </div>
 
             
@@ -61,17 +75,11 @@
                     <p class="text-red-500 font-bold text-lg mt-2">${{ $producto->precio }}</p>
 
                     <button
-                        @click="agregar({
-                            id: {{ $producto->id }},
-                            nombre: @js($producto->nombre),
-                            precio: {{ $producto->precio }},
-                            imagen: @js($producto->imagen ? asset('productos/'.$producto->imagen) : asset('src/placeholder.png')),
-                            numero_tomo: {{ $producto->numero_tomo }}
-                        })"
-                        class="mt-3 w-full bg-black text-white py-2 rounded-lg hover:bg-red-500 transition"
-                    >
-                        Agregar al carrito
-                    </button>
+    @click="agregar({{ $producto->id }})"
+    class="mt-3 w-full bg-black text-white py-2 rounded-lg hover:bg-red-500 transition"
+>
+    Agregar al carrito
+</button>
                 </div>
             </div>
             @endforeach
