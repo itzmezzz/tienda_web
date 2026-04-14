@@ -170,6 +170,40 @@ class ProductoController extends Controller
 
         return view('vista_usuario', compact('productos'));
     }
+     public function buscarus(Request $req)
+    {
+        $query = $req->input('q');
+
+        $productos = Producto::with([
+            'autor',
+            'serie',
+            'categoria',
+            'editorial'
+        ])
+        ->where(function($q) use ($query){
+
+            $q->where('nombre','like',"%$query%")
+
+            ->orWhereHas('autor',function($q2) use ($query){
+                $q2->where('nombre','like',"%$query%");
+            })
+
+            ->orWhereHas('serie',function($q2) use ($query){
+                $q2->where('nombre','like',"%$query%");
+            })
+
+            ->orWhereHas('categoria',function($q2) use ($query){
+                $q2->where('nombre','like',"%$query%");
+            })
+
+            ->orWhereHas('editorial',function($q2) use ($query){
+                $q2->where('nombre','like',"%$query%");
+            });
+
+        })->get();
+
+        return view('vista_usuario', compact('productos','query'));
+    }
     
 
 }
