@@ -113,7 +113,17 @@
                         this.carrito = [];
                     }
                 });
-            }
+            },
+           irAlCheckout() {
+    if (this.carrito.length === 0) {
+        alert("Tu carrito está vacío");
+        return;
+    }
+
+    // Redirigir a la vista de confirmación
+    // Si usas un archivo .js externo, usa la ruta manual: window.location.href = "/checkout/confirmar";
+    window.location.href = "{{ route('checkout.confirmacion') }}"; 
+}
         }
     }
 
