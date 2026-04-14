@@ -60,9 +60,12 @@
         <span class="text-xl font-black" style="color: #000000 !important;">$<span x-text="total.toFixed(2)"></span></span>
       </div>
 
-      <button class="w-full bg-black text-white py-3 rounded-xl font-bold text-sm hover:bg-red-600 transition shadow-lg">
-        FINALIZAR COMPRA
-      </button>
+      <button 
+  @click="irAlCheckout()" 
+  class="w-full bg-black text-white py-3 rounded-xl font-bold text-sm hover:bg-red-600 transition shadow-lg"
+>
+  FINALIZAR COMPRA
+</button>
 
       <button @click="vaciar()" class="w-full text-[10px] mt-3 font-bold hover:text-red-600 uppercase tracking-widest" style="color: #9ca3af !important;">
         Vaciar Carrito
