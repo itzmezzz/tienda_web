@@ -11,8 +11,10 @@
 
 <div class="bg-slate-800 p-12 rounded-xl shadow-2xl w-[900px]">
 
-<form action="{{ route('producto.guardar') }}" method="POST" enctype="multipart/form-data" class="text-white">
+<form action="{{ route('producto.actualizar', $producto->id) }}" method="POST" enctype="multipart/form-data" class="text-white">
 @csrf
+@method('PUT')
+
 
 <div class="grid grid-cols-2 gap-6">
 
