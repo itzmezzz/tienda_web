@@ -17,14 +17,14 @@
         <div class="absolute top-0 left-0 w-full h-1 bg-orange-600"></div>
 
         <header class="text-center mb-10">
-            <span class="text-[13px] font-black text-zinc-500 tracking-[0.5em] uppercase mb-2 block">Bienvenido</span>
+            <span class="text-[10px] font-black text-zinc-500 tracking-[0.4em] uppercase mb-2 block">Bienvenido de nuevo</span>
             <h1 class="text-4xl font-black text-white tracking-tighter italic uppercase">Manga <span class="text-orange-600">House</span></h1>
             <div class="h-1 w-16 bg-orange-600 mx-auto mt-3"></div>
         </header>
 
         @if ($errors->any())
             <div class="bg-red-900/20 border border-red-500 text-red-500 px-4 py-3 text-xs font-bold mb-6 text-center uppercase tracking-widest">
-                <i class="fas fa-exclamation-circle mr-2"></i> 
+                <i class="fas fa-exclamation-circle mr-3"></i> 
                 {{ $errors->first() }}
             </div>
         @endif
@@ -33,14 +33,16 @@
             @csrf
             
             <div class="form-group">
-                <label class="block text-[12px] font-black text-orange-600 uppercase tracking-widest mb-2 ml-1">Inciar sesion</label>
-                <input type="email" name="email" placeholder="CORREO ELECTRÓNICO" value="{{ old('email') }}" required autofocus
-                    class="w-full bg-zinc-900 border border-zinc-800 p-4 rounded-sm text-white text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition placeholder:text-zinc-700 font-bold uppercase tracking-wider">
+                <label class="block text-[12px] font-black text-orange-600 uppercase tracking-widest mb-2 ml-1">Iniciar sesion</label>
+                <input type="email" name="email" placeholder="Correo electrónico" value="{{ old('email') }}" required autofocus
+                    style="text-transform: none !important; letter-spacing: normal !important;"
+                    class="w-full bg-zinc-900 border border-zinc-800 p-4 rounded-sm text-white text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition placeholder:text-zinc-700 font-medium">
             </div>
 
             <div class="form-group">
-                <input type="password" name="password" placeholder="CONTRASEÑA" required
-                    class="w-full bg-zinc-900 border border-zinc-800 p-4 rounded-sm text-white text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition placeholder:text-zinc-700 font-bold uppercase tracking-wider">
+                <input type="password" name="password" placeholder="Contraseña" required
+                    style="text-transform: none !important; letter-spacing: normal !important;"
+                    class="w-full bg-zinc-900 border border-zinc-800 p-4 rounded-sm text-white text-sm focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 transition placeholder:text-zinc-700 font-medium">
             </div>
 
             <button type="submit" class="w-full bg-orange-600 text-black font-black py-4 uppercase tracking-[0.2em] text-sm hover:bg-white transition-all duration-300 shadow-lg active:scale-95">
@@ -65,7 +67,7 @@
 
         <div class="mt-10 pt-6 border-t border-zinc-900 text-center text-[13px] font-bold text-zinc-500 uppercase tracking-tighter">
             ¿Aún no tienes cuenta? 
-            <a href="{{ route('register.form') }}" class="text-orange-500 hover:text-white transition-colors underline decoration-2 underline-offset-2   ml-2">REGISTRARME</a>
+            <a href="{{ route('register.form') }}" class="text-orange-500 hover:text-white transition-colors underline decoration-2 underline-offset-2 ml-2">REGISTRARME</a>
         </div>
     </div>
 
