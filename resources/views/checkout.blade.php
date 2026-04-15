@@ -17,7 +17,8 @@
     </style>
 </head>
 
-<body class="min-h-screen bg-[#0a0a0a] bg-[url('/src/manga-bg.png')] bg-fixed bg-cover bg-blend-multiply py-12 px-4 text-zinc-300">
+<body class="min-h-screen bg-[#0a0a0a] py-12 px-4 text-zinc-300" 
+      style="background-image: linear-gradient(rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.8)), url('{{ asset('src/manga-bg.png') }}'); background-attachment: fixed; background-size: cover;">
 
     <div class="max-w-5xl mx-auto">
         
