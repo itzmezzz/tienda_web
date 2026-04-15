@@ -4,79 +4,68 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Venta;
-use App\Models\DetalleVenta;
+use App\Models\DetalleVenta; // Asegúrate de tener este modelo
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class VentaController extends Controller
 {
-    /**
-     * Crea la venta y sus detalles en la base de datos
-     */
     public function store(Request $request)
     {
-        // 1. Validar dirección
         $request->validate([
-            'id_direccion' => 'required|exists:direccionusuarios,id'
+            'id_direccion' => 'required',
+            'metodo' => 'required' 
         ]);
 
-        // 2. Obtener carrito
         $carrito = session()->get('carrito', []);
-
+        
         if (empty($carrito)) {
             return redirect()->route('tienda')->with('error', 'Tu carrito está vacío.');
         }
 
-        // 3. Iniciar Transacción SQL
-        DB::beginTransaction();
+        $total = collect($carrito)->sum(fn($item) => $item['precio'] * $item['cantidad']);
 
-        try {
-            // Calcular total
-            $total = collect($carrito)->sum(fn($i) => $i['precio'] * $i['cantidad']);
-
-            // 4. Crear Cabecera de Venta
+        // Usamos una transacción para asegurar que si algo falla, no se cree la venta vacía
+        return DB::transaction(function () use ($request, $carrito, $total) {
+            
+            // 1. Crear la cabecera de la Venta
             $venta = Venta::create([
-                'id_usuario'   => Auth::id(),
+                'id_usuario' => Auth::id(),
                 'id_direccion' => $request->id_direccion,
-                'fecha'        => now(),
-                'total'        => $total,
-                'estado'       => 'pendiente'
+                'total' => $total,
+                'estado' => 'pendiente',
+                'fecha' => now(),
             ]);
 
-            // 5. Crear Detalle de Venta para cada producto
-            foreach ($carrito as $item) {
-                DetalleVenta::create([
-                    'id_venta'        => $venta->id,
-                    'id_producto'     => $item['id'],
-                    'cantidad'        => $item['cantidad'],
-                    'precio_unitario' => $item['precio']
-                ]);
+            // 2. Guardar cada producto del carrito en DetalleVenta
+           foreach ($carrito as $id_producto => $item) {
+             DetalleVenta::create([
+            'id_venta'    => $venta->id,
+            'id_producto' => $id_producto,
+            'cantidad'    => $item['cantidad'],
+             'precio'      => $item['precio'], 
+            ]);
             }
 
-            // 6. Confirmar cambios y limpiar sesión
-            DB::commit();
-            session()->forget('carrito');
+            
+            //session()->forget('carrito');
 
-            return redirect()->route('checkout.pago', $venta->id)
-                             ->with('success', 'Pedido generado con éxito.');
+            // 4. Redirección según el método elegido
+            if ($request->metodo == 'stripe') {
+                return redirect()->route('pago.stripe', $venta->id);
+            }
 
-        } catch (\Exception $e) {
-            // Si algo falla (ej. error de BD), se deshace todo lo anterior
-            DB::rollBack();
-            return back()->with('error', 'Error al procesar la compra: ' . $e->getMessage());
-        }
+            return redirect()->route('checkout.pago', $venta->id);
+        });
     }
 
-    /**
-     * Historial de compras para el perfil del usuario
-     */
     public function misCompras()
     {
-        // Cargamos las ventas con sus detalles y productos relacionados (Eager Loading)
+        // Eager loading para evitar el problema de consultas N+1
         $ventas = Venta::with(['detalles.producto'])
-                       ->where('id_usuario', Auth::id())
-                       ->orderBy('fecha', 'desc')
-                       ->get();
+                        ->where('id_usuario', Auth::id())
+                        ->orderBy('fecha', 'desc')
+                        ->get();
 
         return view('perfil.compras', compact('ventas'));
     }
