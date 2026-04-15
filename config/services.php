@@ -39,5 +39,14 @@ return [
     'client_secret' => env('GOOGLE_OAUTH_SECRET'),
     'redirect' => '/google-callback',
 ],
- 
+
+    'paypal' => [
+        'client_id' => env('PAYPAL_CLIENT_ID'),
+        'secret' => env('PAYPAL_SECRET'),
+    ],
+
+    'stripe' => [
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
+    ],
 ];

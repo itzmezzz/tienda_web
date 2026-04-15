@@ -83,6 +83,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/pago/stripe/{id}', [PagoController::class, 'iniciarPagoStripe'])->name('pago.stripe');
     Route::post('/pago/procesar/{id}', [PagoController::class, 'procesarPago'])->name('pago.procesar');
     Route::get('/pago/confirmar/{id}', [PagoController::class, 'procesarRespuesta'])->name('pago.confirmar');
+    
 });
 
 // Rutas para administración (solo para rol admin)
@@ -97,7 +98,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/producto/guardar', [ProductoController::class, 'guardar'])->name('producto.guardar');
     Route::get('/producto/lista', [ProductoController::class, 'lista'])->name('producto.lista');
     Route::get('/buscar', [ProductoController::class, 'buscar'])->name('producto.buscar');
-    Route::get('/buscar', [ProductoController::class, 'buscarus'])->name('producto.buscarus');
+    Route::get('/buscarus', [ProductoController::class, 'buscarus'])->name('producto.buscarus');
     Route::get('/producto/live-search', [ProductoController::class, 'liveSearch'])->name('producto.liveSearch');
     Route::get('/producto/eliminar/{id}', [ProductoController::class, 'eliminar'])->name('producto.eliminar');
     Route::get('/producto/editar/{id}', [ProductoController::class, 'editar'])->name('producto.editar');
