@@ -29,9 +29,21 @@ class DireccionController extends Controller
                 'pais' => $request->pais,
                 'referencia' => $request->referencia,
             ]
+            );
+
+    DireccionUsuario::updateOrCreate(
+        ['id_usuario' => Auth::id()], 
+        [
+            'calle' => $request->calle,
+            'ciudad' => $request->ciudad,
+            'estado' => $request->estado,
+            'codigo_postal' => $request->codigo_postal,
+            'pais' => $request->pais,
+            'referencia' => $request->referencia,
+        ]
         );
 
-        return back()->with('success', 'Dirección guardada correctamente.');
+        return redirect()->route('checkout.confirmacion')->with('success', 'Dirección guardada correctamente.');
     }
 
     // NUEVO MÉTODO: Para cargar la vista de confirmación con datos
