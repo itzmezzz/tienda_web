@@ -80,7 +80,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Pagos
     Route::get('/checkout/pago/{id}', [PagoController::class, 'mostrarCheckout'])->name('checkout.pago');
-    Route::post('/pago/confirmar/{id}', [PagoController::class, 'procesarRespuesta'])->name('pago.confirmar');
+    Route::get('/pago/stripe/{id}', [PagoController::class, 'iniciarPagoStripe'])->name('pago.stripe');
+    Route::post('/pago/procesar/{id}', [PagoController::class, 'procesarPago'])->name('pago.procesar');
+    Route::get('/pago/confirmar/{id}', [PagoController::class, 'procesarRespuesta'])->name('pago.confirmar');
 });
 
 // Rutas para administración (solo para rol admin)
