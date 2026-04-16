@@ -66,4 +66,32 @@ class DireccionController extends Controller
     // Retornamos la vista donde estará el formulario
     return view('direcciones', compact('direccion'));
 }
+public function editar($id)
+{
+    $direccion = DireccionUsuario::where('id', $id)
+                                ->where('id_usuario', auth()->id()) // Seguridad: solo sus propias direcciones
+                                ->firstOrFail();
+    return view('direcciones.editar', compact('direccion'));
+}
+
+public function actualizar(Request $request, $id)
+{
+    $direccion = DireccionUsuario::where('id', $id)
+                                ->where('id_usuario', auth()->id())
+                                ->firstOrFail();
+
+    $direccion->update($request->all());
+
+    return redirect()->route('direccion.index')->with('success', 'Dirección actualizada');
+}
+
+public function eliminar($id)
+{
+    $direccion = DireccionUsuario::where('id', $id)
+                                ->where('id_usuario', auth()->id())
+                                ->firstOrFail();
+    $direccion->delete();
+
+    return redirect()->route('direccion.index')->with('success', 'Dirección eliminada');
+}
 }

@@ -1,71 +1,72 @@
-<aside>
-<nav class="flex-1 overflow-y-auto custom-scrollbar py-6 px-3 space-y-1">
-
-<p class="px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Principal</p>
-
-<a href="/dashboard" class="flex items-center gap-3 px-4 py-3 rounded-lg text-white transition-all duration-300 bg-gradient-to-r from-[rgba(230,57,70,0.15)] to-transparent border-l-[3px] border-admin-accent group">
-    <i class="fas fa-chart-line w-5 text-center text-admin-accent"></i>
-    <span class="font-medium">Dashboard</span>
-</a>
-
-<a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 transition-all duration-300 hover:bg-gradient-to-r hover:from-[rgba(230,57,70,0.15)] hover:to-transparent hover:border-l-[3px] hover:border-admin-accent hover:text-white group">
-    <i class="fas fa-shopping-cart w-5 text-center group-hover:text-admin-accent"></i>
-    <span class="font-medium">Pedidos</span>
-</a>
-
-<p class="px-4 text-xs font-semibold text-slate-500 uppercase tracking-wider mt-8 mb-3">Gestión</p>
-
-<a href="{{ route('categoria.lista') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 transition-all duration-300 hover:bg-gradient-to-r hover:from-[rgba(230,57,70,0.15)] hover:to-transparent hover:border-l-[3px] hover:border-admin-accent hover:text-white group">
-    <i class="fas fa-tags w-5 text-center group-hover:text-admin-accent"></i>
-    <span class="font-medium">Categorías</span>
-</a>
-
-<a href="{{ route('producto.lista') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 transition-all duration-300 hover:bg-gradient-to-r hover:from-[rgba(230,57,70,0.15)] hover:to-transparent hover:border-l-[3px] hover:border-admin-accent hover:text-white group">
-    <i class="fas fa-book w-5 text-center group-hover:text-admin-accent"></i>
-    <span class="font-medium">Mangas</span>
-</a>
-
-<a href="{{ route('editorial.lista') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 transition-all duration-300 hover:bg-gradient-to-r hover:from-[rgba(230,57,70,0.15)] hover:to-transparent hover:border-l-[3px] hover:border-admin-accent hover:text-white group">
-    <i class="fas fa-newspaper w-5 text-center group-hover:text-admin-accent"></i>
-    <span class="font-medium">Editoriales</span>
-</a>
-
-<a href="{{ route('serie.lista') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 transition-all duration-300 hover:bg-gradient-to-r hover:from-[rgba(230,57,70,0.15)] hover:to-transparent hover:border-l-[3px] hover:border-admin-accent hover:text-white group">
-    <i class="fas fa-layer-group w-5 text-center group-hover:text-admin-accent"></i>
-    <span class="font-medium">Series</span>
-</a>
-
-<a href="{{ route('autores.lista') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 transition-all duration-300 hover:bg-gradient-to-r hover:from-[rgba(230,57,70,0.15)] hover:to-transparent hover:border-l-[3px] hover:border-admin-accent hover:text-white group">
-    <i class="fas fa-user-pen w-5 text-center group-hover:text-admin-accent"></i>
-    <span class="font-medium">Autores</span>
-</a>
-
-</nav>
- <div class="p-4 border-t border-slate-700">
-                <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/50 hover:bg-slate-800 cursor-pointer transition-colors group">
-                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=100" alt="Admin" class="w-10 h-10 rounded-full border-2 border-admin-accent">
-                    <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-white truncate">{{ auth()->user()->name }}</p>
-                        <p class="text-xs text-slate-500 truncate">{{ auth()->user()->email }}</p>
-                    </div>
-                </div><br>
-    <div class="bg-slate-800/50 rounded-xl p-3 border border-slate-700 hover:border-red-500/40 transition-all">
-        
-        <form action="{{ route('logout') }}" method="POST" class="flex items-center gap-3 text-red-400 hover:text-white transition-colors group">
-            @csrf
-            <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-red-500/10 group-hover:bg-red-500 transition-all">
-                <i class="fas fa-right-from-bracket"></i>
+<aside class="w-72 bg-[#0a0a0a] border-r-2 border-zinc-900 flex flex-col shrink-0 relative">
+    
+    <div class="h-20 flex items-center px-6 border-b-2 border-zinc-900">
+        <div class="w-10 h-10 bg-orange-600 flex items-center justify-center mr-3 rotate-3 shadow-[4px_4px_0_rgba(255,255,255,0.1)]">
+            <i class="fas fa-book-open text-black text-lg"></i>
+        </div>
+        <div>
+            <h1 class="text-white font-black text-xl tracking-tighter uppercase italic">
+                MANGA<span class="text-orange-600">HOUSE</span>
+            </h1>
+            <div class="h-1 w-full bg-zinc-800 mt-1">
+                <div class="h-full bg-orange-600 w-2/3"></div>
             </div>
-
-            <div class="flex-1 min-w-0">
-                <button type="submit">
-                    <p class="text-sm font-medium">Cerrar sesión</p>
-                </button>
-                <p class="text-xs text-slate-500 group-hover:text-slate-300">Salir del sistema</p>
-            </div>
-
-        </form>
-
+        </div>
     </div>
-</div>
-            </aside>
+
+    <nav class="flex-1 overflow-y-auto custom-scrollbar py-8 px-4 space-y-2">
+        
+        <p class="px-4 text-[10px] font-black text-zinc-600 uppercase tracking-[0.4em] mb-4">Principal</p>
+        
+        <a href="/dashboard" class="flex items-center gap-3 px-4 py-3 bg-orange-600 text-black font-black italic shadow-[4px_4px_0_rgba(255,255,255,0.1)] group transition-all">
+            <i class="fas fa-chart-line w-5 text-center"></i>
+            <span class="uppercase tracking-widest text-[11px]">Dashboard</span>
+        </a>
+
+        <a href="#" class="flex items-center gap-3 px-4 py-3 text-zinc-500 hover:text-white hover:bg-zinc-900 transition-all group border-b border-transparent hover:border-orange-600">
+            <i class="fas fa-shopping-cart w-5 text-center group-hover:text-orange-600"></i>
+            <span class="font-bold uppercase tracking-widest text-[11px]">Pedidos</span>
+        </a>
+
+        <p class="px-4 text-[10px] font-black text-zinc-600 uppercase tracking-[0.4em] mt-10 mb-4">Gestión</p>
+
+        @php
+            $links = [
+                ['route' => 'categoria.lista', 'icon' => 'fa-tags', 'label' => 'Categorías'],
+                ['route' => 'producto.lista', 'icon' => 'fa-book', 'label' => 'Mangas'],
+                ['route' => 'editorial.lista', 'icon' => 'fa-newspaper', 'label' => 'Editoriales'],
+                ['route' => 'serie.lista', 'icon' => 'fa-layer-group', 'label' => 'Series'],
+                ['route' => 'autores.lista', 'icon' => 'fa-user-pen', 'label' => 'Autores'],
+            ];
+        @endphp
+
+        @foreach($links as $link)
+        <a href="{{ route($link['route']) }}" class="flex items-center gap-3 px-4 py-3 text-zinc-500 hover:text-white hover:bg-zinc-900 transition-all group border-b border-transparent hover:border-orange-600">
+            <i class="fas {{ $link['icon'] }} w-5 text-center group-hover:text-orange-600"></i>
+            <span class="font-bold uppercase tracking-widest text-[11px]">{{ $link['label'] }}</span>
+        </a>
+        @endforeach
+
+    </nav>
+
+    <div class="p-6 bg-[#050505] border-t-2 border-zinc-900">
+        
+        <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 border-2 border-orange-600 p-0.5">
+                <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=ea580c&color=000" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-1 min-w-0">
+                <p class="text-[11px] font-black text-white truncate uppercase italic">{{ auth()->user()->name }}</p>
+                <p class="text-[9px] text-zinc-600 truncate uppercase font-bold tracking-widest">Administrator</p>
+            </div>
+        </div>
+
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="w-full flex items-center justify-center gap-2 py-3 bg-zinc-900 text-zinc-500 font-black hover:bg-red-600 hover:text-white transition-all uppercase tracking-widest text-[10px] border border-zinc-800">
+                <i class="fas fa-power-off"></i>
+                <span>Cerrar Sesión</span>
+            </button>
+        </form>
+    </div>
+</aside>

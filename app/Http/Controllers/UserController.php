@@ -140,4 +140,18 @@ class UserController extends Controller
             session()->put('carrito', $carritoSesion);
         }
     }
+    public function perfil()
+{
+    $usuario = auth()->user();
+    
+    $direcciones = \App\Models\DireccionUsuario::where('id_usuario', $usuario->id)->get();
+    
+    // Cargamos las ventas con sus detalles y el producto (manga) relacionado
+    $pedidos = \App\Models\Venta::with('detalles.producto')
+                ->where('id_usuario', $usuario->id)
+                ->orderBy('created_at', 'desc')
+                ->get();
+
+    return view('perfil', compact('usuario', 'direcciones', 'pedidos'));
+}
 }

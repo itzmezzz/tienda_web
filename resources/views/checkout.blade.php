@@ -103,6 +103,9 @@
                             </div>
                         @endisset
                     </div>
+                    <a href="{{ url()->previous() }}" class="block text-center mt-6 text-[10px] font-black text-zinc-500 hover:text-white uppercase tracking-widest transition-colors">
+            <i class="fas fa-chevron-left mr-2"></i> Volver atrás
+        </a>
                 </div>
 
                 {{-- Columna Derecha: Resumen --}}
