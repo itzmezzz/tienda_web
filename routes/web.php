@@ -72,6 +72,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Direcciones
     Route::get('/direcciones', [DireccionController::class, 'index'])->name('direccion.index');
     Route::post('/perfil/direccion', [DireccionController::class, 'guardar'])->name('direccion.guardar');
+    Route::get('/direcciones/editar/{id}', [DireccionController::class, 'editar'])->name('direccion.editar');
+    Route::put('/direcciones/actualizar/{id}', [DireccionController::class, 'actualizar'])->name('direccion.actualizar');
+    Route::get('/direcciones/eliminar/{id}', [DireccionController::class, 'eliminar'])->name('direccion.eliminar');
 
     // Proceso de Compra (Checkout)
     Route::get('/checkout/confirmar', [DireccionController::class, 'mostrarConfirmacion'])->name('checkout.confirmacion');
@@ -83,6 +86,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/pago/stripe/{id}', [PagoController::class, 'iniciarPagoStripe'])->name('pago.stripe');
     Route::post('/pago/procesar/{id}', [PagoController::class, 'procesarPago'])->name('pago.procesar');
     Route::get('/pago/confirmar/{id}', [PagoController::class, 'procesarRespuesta'])->name('pago.confirmar');
+    Route::get('/perfil', [UserController::class, 'perfil'])->name('perfil');
     
 });
 

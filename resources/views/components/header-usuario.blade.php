@@ -26,7 +26,7 @@
          class="absolute z-50 w-full mt-2 bg-zinc-900 border border-zinc-700 rounded-xl shadow-2xl overflow-hidden hidden">
     </div>
 </div>
-                <a href="#" class="text-white hover:text-orange-500 transition">Inicio</a>
+                <a href="/" class="text-white hover:text-orange-500 transition">Inicio</a>
                 <a href="{{ route('catalogo') }}" class="text-white hover:text-orange-500 transition">Catálogo</a>
                 <a href="#" class="text-white hover:text-orange-500 transition">Ofertas</a>
                 

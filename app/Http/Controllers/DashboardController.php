@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    function index(){
-        return view('dashboard');
-    }
+    public function index()
+{
+    $productos = Producto::all();
+    return view('dashboard', [
+        'productos' => $productos
+    ]);
+}
 }
