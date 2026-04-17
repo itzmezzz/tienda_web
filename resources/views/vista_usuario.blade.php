@@ -80,7 +80,7 @@
 
     //imagen2
     <div x-show="s === 2" x-transition.opacity.duration.1000ms class="absolute inset-0" style="display:none">
-        <img src="https://i.redd.it/5zrjbgpiozug1.jpeg" class="w-full h-full object-cover opacity-50">
+        <img src="https://preview.redd.it/need-this-wallpaper-in-4k-8k-for-my-pc-v0-mubfbaf14xdg1.png?width=1080&crop=smart&auto=webp&s=045ab518e50dc87d7a1de1e994186027c6e82ace" class="w-full h-full object-cover opacity-50">
         <div class="absolute inset-0 flex flex-col justify-center px-12 md:px-24 bg-gradient-to-r from-black via-transparent">
             <h2 class="text-orange-600 text-4xl md:text-6xl font-black italic uppercase tracking-tighter">Ofertas de Temporada</h2>
             <p class="text-white text-lg mt-2 font-bold uppercase tracking-widest">Hasta 30% de descuento</p>

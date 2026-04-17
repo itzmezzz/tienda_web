@@ -23,4 +23,23 @@ function lista(){
     $series = Serie::with('categoria')->get();
     return view('lista_serie', compact('series'));
 }
+function eliminar($id){
+    $serie = Serie::findOrFail($id);
+    $serie->delete();
+    return redirect()->route('serie.lista');
+}
+function editar($id){
+    $serie = Serie::findOrFail($id);
+    $categorias = Categoria::all();
+    return view('serie_act', compact('serie','categorias'));
+}
+function actualizar(Request $req, $id){
+    $serie = Serie::findOrFail($id);
+    $serie->nombre = $req->nombre;
+    $serie->descripcion = $req->descripcion;
+    $serie->id_categoria = $req->id_categoria;
+    $serie->save();
+    return redirect()->route('serie.lista');
+}
+
 }

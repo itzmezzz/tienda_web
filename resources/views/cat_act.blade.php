@@ -31,9 +31,8 @@
                 <div class="mb-8 flex items-center gap-4">
                     <div class="h-12 w-2 bg-orange-600 shadow-[0_0_15px_rgba(234,88,12,0.4)]"></div>
                     <div>
-                        <span class="text-[10px] font-black text-zinc-500 tracking-[0.4em] uppercase block">Classification Unit</span>
                         <h1 class="text-3xl font-black text-white uppercase italic tracking-tighter">
-                            Nueva <span class="text-orange-600 italic">Categoría</span>
+                            Actualizar <span class="text-orange-600 italic">Categoría</span>
                         </h1>
                     </div>
                 </div>
@@ -43,14 +42,15 @@
                     {{-- Detalle superior naranja --}}
                     <div class="absolute top-0 left-0 w-24 h-1 bg-orange-600"></div>
 
-                    <form action="{{ route('categoria.guardar') }}" method="POST">
+                    <form action="{{ route('categoria.actualizar', $categoria->id) }}" method="POST">
                         @csrf
+                        @method('PUT')
 
                         <div class="space-y-6">
                             <div>
                                 <label class="text-[10px] font-black text-orange-600 uppercase tracking-[0.2em] block mb-3">Nombre del Género / Demografía</label>
                                 <div class="relative">
-                                    <input type="text" name="nombre" required placeholder="EJ. SHONEN / SEINEN"
+                                    <input type="text" name="nombre" value="{{ $categoria->nombre }}" required placeholder="EJ. SHONEN / SEINEN"
                                         class="manga-input w-full bg-zinc-900 border border-zinc-800 p-4 text-white font-bold uppercase tracking-widest text-sm transition-all pl-12">
                                     <i class="fas fa-tags absolute left-4 top-1/2 -translate-y-1/2 text-zinc-700 text-sm"></i>
                                 </div>
@@ -60,7 +60,7 @@
                             <div class="flex flex-col gap-3 pt-4">
                                 <button type="submit" 
                                     class="bg-orange-600 hover:bg-white text-black font-black py-4 uppercase tracking-widest text-xs transition-all shadow-[6px_6px_0_rgba(255,255,255,0.1)] hover:shadow-none hover:translate-x-1 hover:translate-y-1 flex items-center justify-center gap-3">
-                                    <i class="fas fa-plus-circle"></i> Crear Categoría
+                                    <i class="fas fa-plus-circle"></i> Actualizar Categoría
                                 </button>
 
                                 <a href="{{ route('categoria.lista') }}" 

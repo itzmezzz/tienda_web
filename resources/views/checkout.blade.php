@@ -7,9 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .animate-glow {
-            animation: glow 2s infinite alternate;
-        }
+        .animate-glow { animation: glow 2s infinite alternate; }
         @keyframes glow {
             from { box-shadow: 0 0 10px -2px #ea580c; }
             to { box-shadow: 0 0 25px 2px #ea580c; }
@@ -22,10 +20,20 @@
 
     <div class="max-w-5xl mx-auto">
         
+        {{-- Mensajes de Error/Éxito --}}
+        @if(session('error'))
+            <div class="bg-red-600/20 border border-red-600 text-red-100 p-4 mb-6 font-bold uppercase text-xs tracking-widest">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        {{-- Formulario Principal --}}
+        {{-- Si la venta NO existe, el form apunta a guardar la venta. Si ya existe, no se usa el form (se usan los botones de pago) --}}
         <form action="{{ route('venta.store') }}" method="POST" id="form-checkout">
             @csrf
             
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
                 {{-- Columna Izquierda: Datos --}}
                 <div class="lg:col-span-2 space-y-6">
                     
@@ -55,7 +63,7 @@
                         </div>
                     </div>
 
-                    {{-- Bloque 2: Método de Pago / Botones Reales --}}
+                    {{-- Bloque 2: Pago --}}
                     <div class="bg-black/80 p-8 border-2 border-zinc-900 shadow-xl backdrop-blur-sm">
                         <h2 class="text-xl font-bold flex items-center mb-6 text-white uppercase tracking-wider">
                             <span class="bg-orange-600 text-black w-7 h-7 flex items-center justify-center text-sm mr-3 font-black">2</span>
@@ -63,7 +71,7 @@
                         </h2>
                         
                         @isset($venta)
-                            {{-- MODO PAGO ACTIVO --}}
+                            {{-- MODO PAGO ACTIVO (La venta ya se creó) --}}
                             <div class="space-y-4 animate-glow p-4 border border-orange-600/30">
                                 <p class="text-center text-xs font-black text-orange-600 uppercase tracking-[0.3em] mb-4">Selecciona tu pasarela</p>
                                 
@@ -83,7 +91,7 @@
                                 <div id="paypal-button-container" class="relative z-10"></div>
                             </div>
                         @else
-                            {{-- MODO SELECCIÓN INICIAL --}}
+                            {{-- MODO SELECCIÓN (Antes de crear la venta) --}}
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <label class="relative flex p-4 border-2 border-zinc-900 bg-zinc-900/20 cursor-pointer hover:border-orange-600 transition has-[:checked]:border-orange-600">
                                     <input type="radio" name="metodo" value="stripe" class="mt-1 accent-orange-600" checked>
@@ -103,9 +111,10 @@
                             </div>
                         @endisset
                     </div>
+                    
                     <a href="{{ url()->previous() }}" class="block text-center mt-6 text-[10px] font-black text-zinc-500 hover:text-white uppercase tracking-widest transition-colors">
-            <i class="fas fa-chevron-left mr-2"></i> Volver atrás
-        </a>
+                        <i class="fas fa-chevron-left mr-2"></i> Volver atrás
+                    </a>
                 </div>
 
                 {{-- Columna Derecha: Resumen --}}
@@ -117,24 +126,27 @@
                                 <span>Subtotal</span>
                                 <span class="text-white">${{ number_format($total, 2) }}</span>
                             </div>
+                            
                             @isset($venta)
                                 <div class="flex justify-between text-orange-600 font-black text-[10px] uppercase tracking-widest">
                                     <span>Orden ID</span>
                                     <span>#{{ $venta->id }}</span>
                                 </div>
                             @endisset
+
                             <div class="border-t border-zinc-900 pt-4 flex justify-between items-end">
                                 <span class="text-lg font-black text-white uppercase italic">Total</span>
                                 <span class="text-4xl font-black text-orange-600 italic tracking-tighter">${{ number_format($total, 2) }}</span>
                             </div>
                         </div>
 
+                        {{-- Botón de Acción Dinámico --}}
                         @if(!isset($venta))
-                            <button type="submit" class="w-full bg-orange-600 hover:bg-white hover:text-black text-black py-4 font-black text-lg transition-all duration-300 shadow-lg uppercase tracking-[0.2em]">
-                                CONFIRMAR COMPRA
+                            <button type="submit" class="w-full bg-orange-600 text-black font-black py-4 uppercase tracking-widest hover:bg-white transition-all shadow-[4px_4px_0_rgba(255,255,255,0.1)] active:translate-y-1">
+                                Confirmar Pedido
                             </button>
                         @else
-                            <div class="text-center p-2 bg-zinc-900 text-[10px] font-black uppercase text-zinc-500 tracking-tighter">
+                            <div class="text-center p-3 bg-zinc-900 border border-zinc-800 text-[10px] font-black uppercase text-zinc-500 tracking-tighter">
                                 <i class="fa-solid fa-lock mr-2 text-orange-600"></i> Transacción Protegida
                             </div>
                         @endif
@@ -144,24 +156,23 @@
         </form>
     </div>
 
-    {{-- Script PayPal (Solo se carga si existe la venta) --}}
+    {{-- Script PayPal --}}
     @isset($venta)
     <script src="https://www.paypal.com/sdk/js?client-id={{ env('PAYPAL_CLIENT_ID') }}&currency=MXN"></script>
     <script>
         paypal.Buttons({
-            
-              createOrder: (data, actions) => {
-    return actions.order.create({
-        purchase_units: [{
-            amount: {
-                // Forzamos el formato a 2 decimales con punto decimal
-                value: parseFloat('{{ $venta->total }}').toFixed(2)
-            }
-        }]
-    });
-},
+            createOrder: (data, actions) => {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: parseFloat('{{ $venta->total }}').toFixed(2)
+                        }
+                    }]
+                });
+            },
             onApprove: (data, actions) => {
                 return actions.order.capture().then(details => {
+                    // Redirigir al método que descuenta stock y confirma
                     window.location.href = "{{ route('pago.confirmar', $venta->id) }}?metodo=paypal&id_transaccion=" + details.id;
                 });
             }

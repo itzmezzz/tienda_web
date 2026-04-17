@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* SCROLLBAR ESTILO MANGA HOUSE */
+            
         .custom-scrollbar::-webkit-scrollbar {
             width: 8px;
         }
@@ -37,7 +37,7 @@
                 <div class="flex items-center gap-4">
                     <div class="h-12 w-2 bg-orange-600 shadow-[0_0_15px_rgba(234,88,12,0.4)]"></div>
                     <div>
-                        <span class="text-[10px] font-black text-zinc-500 tracking-[0.4em] uppercase block">Publishing Terminal</span>
+                        <span class="text-[10px] font-black text-zinc-500 tracking-[0.4em] uppercase block"></span>
                         <h1 class="text-3xl font-black text-white uppercase italic tracking-tighter">
                             Lista de <span class="text-orange-600 italic">Editoriales</span>
                         </h1>
@@ -83,14 +83,10 @@
                                     </div>
                                 </td>
 
-                                <td class="p-5 text-center">
-                                    <div class="flex justify-center gap-2">
-                                        <a href="#" class="bg-zinc-800 hover:bg-white hover:text-black px-5 py-2 text-[9px] font-black uppercase transition-all border border-zinc-700">
-                                            <i class="fas fa-edit mr-1"></i> Editar
-                                        </a>
-                                        <button class="border border-red-900/40 text-red-600 hover:bg-red-600 hover:text-white px-5 py-2 text-[9px] font-black uppercase transition-all">
-                                            <i class="fas fa-trash mr-1"></i> Borrar
-                                        </button>
+                                <td class="p-5">
+                                    <div class="flex flex-col gap-1 w-20 mx-auto">
+                                        <a href="{{ route('editorial.editar', $fila->id) }}" class="bg-zinc-800 hover:bg-white hover:text-black p-2 text-[9px] font-black text-center uppercase transition-all">Editar</a>
+                                        <a href="{{ route('editorial.eliminar', $fila->id) }}" onclick="return confirm('¿Eliminar?')" class="border border-red-900/40 text-red-600 hover:bg-red-600 hover:text-white p-2 text-[9px] font-black text-center uppercase transition-all">Borrar</a>
                                     </div>
                                 </td>
                             </tr>

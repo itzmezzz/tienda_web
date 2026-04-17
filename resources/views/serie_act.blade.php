@@ -34,7 +34,7 @@
                     <div>
                         <span class="text-[10px] font-black text-zinc-500 tracking-[0.4em] uppercase block">Content Management</span>
                         <h1 class="text-3xl font-black text-white uppercase italic tracking-tighter">
-                            Registrar Nueva <span class="text-orange-600 italic">Serie</span>
+                            Actualizar <span class="text-orange-600 italic">Serie</span>
                         </h1>
                     </div>
                 </div>
@@ -49,15 +49,16 @@
                 {{-- Detalle superior naranja --}}
                 <div class="absolute top-0 left-0 w-32 h-1 bg-orange-600"></div>
 
-                <form action="{{ route('serie.guardar') }}" method="POST">
+                <form action="{{ route('serie.actualizar', $serie->id) }}" method="POST">
                     @csrf
+                    @method('PUT')
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         
                         {{-- Nombre de la Serie --}}
                         <div class="md:col-span-2">
                             <label class="text-[10px] font-black text-orange-600 uppercase tracking-[0.2em] block mb-3">Nombre de la Obra</label>
-                            <input type="text" name="nombre" required placeholder="EJ. MY HERO ACADEMIA"
+                            <input type="text" name="nombre" value="{{ $serie->nombre }}" required placeholder="EJ. MY HERO ACADEMIA"
                                 class="manga-input w-full bg-zinc-900 border border-zinc-800 p-4 text-white font-bold uppercase tracking-widest text-sm transition-all">
                         </div>
 
@@ -65,11 +66,13 @@
                         <div class="md:col-span-1">
                             <label class="text-[10px] font-black text-orange-600 uppercase tracking-[0.2em] block mb-3">Categoría / Demografía</label>
                             <div class="relative">
-                                <select name="id_categoria" required
+                                <select name="id_categoria" value="{{ $serie->id_categoria }}"  required
                                     class="manga-input w-full bg-zinc-900 border border-zinc-800 p-4 text-white font-bold uppercase tracking-widest text-sm appearance-none cursor-pointer transition-all">
                                     <option value="" disabled selected>SELECCIONAR GÉNERO</option>
                                     @foreach($categorias as $fila)
-                                        <option value="{{ $fila->id }}" class="bg-zinc-900">{{ $fila->nombre }}</option>
+                                        <option value="{{ $fila->id }}" class="bg-zinc-900" {{ $serie->id_categoria == $fila->id ? 'selected' : '' }}>
+                                            {{ $fila->nombre }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 <i class="fas fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-orange-600 pointer-events-none text-xs"></i>
@@ -83,9 +86,12 @@
 
                         {{-- Descripción --}}
                         <div class="md:col-span-2">
-                            <label class="text-[10px] font-black text-orange-600 uppercase tracking-[0.2em] block mb-3">Sinopsis del Manga</label>
-                            <textarea name="descripcion" rows="5" placeholder="INGRESA EL RESUMEN DE LA HISTORIA..."
-                                class="manga-input w-full bg-zinc-900 border border-zinc-800 p-4 text-white font-bold uppercase tracking-widest text-sm transition-all resize-none"></textarea>
+                        <label class="text-[10px] font-black text-orange-600 uppercase tracking-[0.2em] block mb-3">Sinopsis del Manga</label>
+                         <textarea name="descripcion" rows="5" placeholder="INGRESA EL RESUMEN DE LA HISTORIA..."
+                            class="manga-input w-full bg-zinc-900 border border-zinc-800 p-4 text-white font-bold uppercase tracking-widest text-sm transition-all resize-none">{{ old('descripcion', $serie->descripcion) }}</textarea>
+                                        @error('descripcion')
+                            <span class="text-[9px] text-red-600 font-black uppercase mt-1">{{ $message }}</span>
+                        @enderror
                         </div>
                     </div>
 

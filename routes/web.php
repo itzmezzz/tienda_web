@@ -4,29 +4,23 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
-
+// Controladores
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\AutoreController;
 use App\Http\Controllers\SerieController;
 use App\Http\Controllers\EditorialController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\DireccionController;
 use App\Http\Controllers\PagoController;
 use App\Http\Controllers\VentaController;
+use App\Http\Controllers\DashboardController;
 
 
 Route::get('/', [ProductoController::class, 'tienda']);
 
-
-Route::get('/welcome', function () {
-    return view('welcome');
-});
-
-//Autenticación Tradicional y Social (Google)
-
+//  AUTENTICACIÓN TRADICIONAL Y SOCIAL
 Route::view('/registro/form', 'registraruser')->name('register.form');
 Route::get('/login', [UserController::class, 'showLoginForm'])->name('login.form');
 Route::post('/login', [UserController::class, 'login'])->name('login');
@@ -37,7 +31,8 @@ Route::post('/register', [UserController::class, 'register'])->name('register');
 Route::get('/auth/google', [UserController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('/google-callback', [UserController::class, 'handleGoogleCallback']);
 Route::post('/logout-google', [UserController::class, 'logoutGoogle'])->name('logout-google');
-// Rutas de verificación de email
+
+// --- VERIFICACIÓN DE EMAIL ---
 Route::get('/email/verify', function () {
     return view('verificacion');
 })->middleware('auth')->name('verification.notice');
@@ -53,7 +48,7 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back();
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-//carrito
+// --- CARRITO (Solo usuarios logueados) ---
 Route::middleware(['auth'])->group(function () {
     Route::post('/carrito/agregar/{producto}', [CarritoController::class, 'agregar'])->name('carrito.agregar');
     Route::get('/carrito', [CarritoController::class, 'mostrar'])->name('carrito.mostrar');
@@ -62,12 +57,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/carrito/eliminar-unidad/{producto}', [CarritoController::class, 'eliminarUnidad'])->name('carrito.eliminarUnidad');
 });
 
-//rutas clientes
+// --- RUTAS DE CLIENTES (Auth + Email Verificado) ---
 Route::middleware(['auth', 'verified'])->group(function () {
     
-    // Tienda y Dashboard
     Route::get('/tienda', [ProductoController::class, 'tienda'])->name('tienda');
     Route::get('/dashboard', function () { return view('dashboard'); });
+    Route::get('/perfil', [UserController::class, 'perfil'])->name('perfil');
 
     // Direcciones
     Route::get('/direcciones', [DireccionController::class, 'index'])->name('direccion.index');
@@ -76,39 +71,66 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/direcciones/actualizar/{id}', [DireccionController::class, 'actualizar'])->name('direccion.actualizar');
     Route::get('/direcciones/eliminar/{id}', [DireccionController::class, 'eliminar'])->name('direccion.eliminar');
 
-    // Proceso de Compra (Checkout)
+    // FLUJO DE COMPRA CORREGIDO
+    // 1. Mostrar vista de checkout inicial (donde el usuario elige dirección)
     Route::get('/checkout/confirmar', [DireccionController::class, 'mostrarConfirmacion'])->name('checkout.confirmacion');
-    Route::post('/venta/crear', [VentaController::class, 'store'])->name('venta.store');
-    Route::get('/mis-pedidos', [VentaController::class, 'misCompras'])->name('venta.index');
-
-    // Pagos
-    Route::get('/checkout/pago/{id}', [PagoController::class, 'mostrarCheckout'])->name('checkout.pago');
-    Route::get('/pago/stripe/{id}', [PagoController::class, 'iniciarPagoStripe'])->name('pago.stripe');
-    Route::post('/pago/procesar/{id}', [PagoController::class, 'procesarPago'])->name('pago.procesar');
-    Route::get('/pago/confirmar/{id}', [PagoController::class, 'procesarRespuesta'])->name('pago.confirmar');
-    Route::get('/perfil', [UserController::class, 'perfil'])->name('perfil');
     
+    // 2. Guardar la venta en la DB (Crea el registro de 'Venta' y 'DetalleVenta')
+    Route::post('/venta/crear', [VentaController::class, 'store'])->name('venta.store');
+    
+    // 3. Pasarelas de Pago
+    // Esta ruta muestra la vista con los botones de PayPal/Stripe para una venta ya creada
+    Route::get('/checkout/pago/{id}', [PagoController::class, 'mostrarCheckout'])->name('checkout.pago');
+    
+    // Iniciar redirección a Stripe
+    Route::get('/pago/stripe/{id}', [PagoController::class, 'iniciarPagoStripe'])->name('pago.stripe');
+    
+    // RUTA CRÍTICA: Aquí es donde regresan PayPal y Stripe para confirmar el pago y DESCONTAR STOCK
+    Route::get('/pago/confirmar/{id}', [PagoController::class, 'procesarRespuesta'])->name('pago.confirmar');
+
+    Route::get('/mis-pedidos', [VentaController::class, 'misCompras'])->name('venta.index');
 });
 
-// Rutas para administración (solo para rol admin)
+// --- RUTAS DE ADMINISTRACIÓN (Mantenimiento de Catálogo) ---
 Route::middleware(['auth'])->group(function () {
     // Categorías
-    Route::get('/categoria/form', [CategoriaController::class, 'nuevo'])->name('categoria.nueva');
-    Route::post('/categoria/guardar', [CategoriaController::class, 'guardar'])->name('categoria.guardar');
-    Route::get('/categoria/lista', [CategoriaController::class, 'lista'])->name('categoria.lista');
+    Route::prefix('categoria')->group(function () {
+        Route::get('/form', [CategoriaController::class, 'nuevo'])->name('categoria.nueva');
+        Route::post('/guardar', [CategoriaController::class, 'guardar'])->name('categoria.guardar');
+        Route::get('/lista', [CategoriaController::class, 'lista'])->name('categoria.lista');
+        Route::get('/eliminar/{id}', [CategoriaController::class, 'eliminar'])->name('categoria.eliminar');
+        Route::get('/editar/{id}', [CategoriaController::class, 'editar'])->name('categoria.editar');
+        Route::put('/actualizar/{id}', [CategoriaController::class, 'actualizar'])->name('categoria.actualizar');
+    });
 
-    // Productos
-    Route::get('/producto/form', [ProductoController::class, 'nuevo'])->name('producto.nuevo');
-    Route::post('/producto/guardar', [ProductoController::class, 'guardar'])->name('producto.guardar');
-    Route::get('/producto/lista', [ProductoController::class, 'lista'])->name('producto.lista');
+    // Productos / Mangas
+    Route::prefix('producto')->group(function () {
+        Route::get('/form', [ProductoController::class, 'nuevo'])->name('producto.nuevo');
+        Route::post('/guardar', [ProductoController::class, 'guardar'])->name('producto.guardar');
+        Route::get('/lista', [ProductoController::class, 'lista'])->name('producto.lista');
+        Route::get('/eliminar/{id}', [ProductoController::class, 'eliminar'])->name('producto.eliminar');
+        Route::get('/editar/{id}', [ProductoController::class, 'editar'])->name('producto.editar');
+        Route::put('/actualizar/{id}', [ProductoController::class, 'actualizar'])->name('producto.actualizar');
+    });
+
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/admin/pedidos', [VentaController::class, 'indexAdmin'])->name('admin.pedidos');
+        Route::patch('/admin/pedidos/{id}/estado', [VentaController::class, 'actualizarEstado'])->name('admin.pedidos.estado');
+    });
+    // Búsquedas y Otros
     Route::get('/buscar', [ProductoController::class, 'buscar'])->name('producto.buscar');
     Route::get('/buscarus', [ProductoController::class, 'buscarus'])->name('producto.buscarus');
     Route::get('/producto/live-search', [ProductoController::class, 'liveSearch'])->name('producto.liveSearch');
-    Route::get('/producto/eliminar/{id}', [ProductoController::class, 'eliminar'])->name('producto.eliminar');
-    Route::get('/producto/editar/{id}', [ProductoController::class, 'editar'])->name('producto.editar');
-    Route::put('/producto/actualizar/{id}', [ProductoController::class, 'actualizar'])->name('producto.actualizar');
+    Route::get('/catalogo', [ProductoController::class, 'catalogo'])->name('catalogo');
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+    
 
-    // Autores
+
+    // Autores, Series, Editoriales (Agrupados para limpieza)
+    Route::resource('autores', AutoreController::class)->except(['show', 'create', 'store', 'index', 'destroy', 'edit', 'update']);
+    // Nota: He mantenido tus rutas manuales abajo para no romper tu lógica de nombres
     Route::get('/autores/form', [AutoreController::class, 'nuevo'])->name('autores.nuevo');
     Route::post('/autores/guardar', [AutoreController::class, 'guardar'])->name('autores.guardar');
     Route::get('/autores/lista', [AutoreController::class, 'lista'])->name('autores.lista');
@@ -131,9 +153,4 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/editorial/eliminar/{id}', [EditorialController::class, 'eliminar'])->name('editorial.eliminar');
     Route::get('/editorial/editar/{id}', [EditorialController::class, 'editar'])->name('editorial.editar');
     Route::put('/editorial/actualizar/{id}', [EditorialController::class, 'actualizar'])->name('editorial.actualizar');
-
-
-
-    //catalogo
-    Route::get('/catalogo', [ProductoController::class, 'catalogo'])->name('catalogo'); 
 });

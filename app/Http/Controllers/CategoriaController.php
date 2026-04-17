@@ -28,7 +28,7 @@ function eliminar($id){
 }
 function editar($id){
     $categoria = Categoria::findOrFail($id);
-    return view('editar_categoria', compact('categoria'));
+    return view('cat_act', compact('categoria'));
 }
 function actualizar(Request $req, $id){
     $categoria = Categoria::findOrFail($id);
@@ -37,5 +37,6 @@ function actualizar(Request $req, $id){
     return redirect()->route('categoria.lista')
     ->with('success','Categoria actualizada correctamente');
 }
+
 }
 

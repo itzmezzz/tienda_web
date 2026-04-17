@@ -36,4 +36,8 @@ class Producto extends Model
     {
         return $this->belongsTo(Editorial::class, 'id_editorial');
     }
+    public function hayStock($cantidad)
+{
+    return $this->stock >= $cantidad;
+}
 }

@@ -67,6 +67,27 @@ class VentaController extends Controller
                         ->orderBy('fecha', 'desc')
                         ->get();
 
-        return view('perfil.compras', compact('ventas'));
+        return view('perfil', compact('ventas'));
     }
+    // Añadir al VentaController.php
+
+public function indexAdmin()
+{
+    // Eager loading de usuario y detalles con sus productos para el Admin
+    $pedidos = Venta::with(['usuario', 'detalles.producto'])
+                    ->orderBy('fecha', 'desc')
+                    ->paginate(15);
+
+    return view('pedidos', compact('pedidos'));
+}
+
+public function actualizarEstado(Request $request, $id)
+{
+    $venta = Venta::findOrFail($id);
+    $venta->estado = $request->estado;
+    $venta->save();
+
+    return back()->with('success', 'ESTADO DEL PEDIDO #' . $id . ' ACTUALIZADO');
+}
+
 }

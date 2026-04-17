@@ -8,6 +8,7 @@ use App\Models\Serie;
 use App\Models\Producto;
 use App\Models\Autore;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductoController extends Controller
 {
@@ -213,5 +214,42 @@ class ProductoController extends Controller
     $categorias = \App\Models\Categoria::all(); // Asegúrate de que el modelo exista
     return view('catalogo', compact('productos', 'categorias'));
     }
+    public function procesarCompra(Request $req)
+{
+    // 1. Obtener el carrito de la sesión
+    $carrito = session()->get('carrito');
+
+    if (!$carrito || count($carrito) == 0) {
+        return redirect()->back()->with('error', 'El carrito está vacío.');
+    }
+
+    try {
+        // 2. Iniciar Transacción
+        DB::transaction(function () use ($carrito) {
+            foreach ($carrito as $id => $detalles) {
+                // 3. Buscar el producto y bloquear la fila para evitar ventas simultáneas del mismo producto
+                $producto = Producto::lockForUpdate()->findOrFail($id);
+
+                // 4. Validar stock
+                if ($producto->stock < $detalles['cantidad']) {
+                    throw new \Exception("Lo sentimos, solo quedan {$producto->stock} unidades de {$producto->nombre}.");
+                }
+
+                // 5. Descontar stock
+                $producto->decrement('stock', $detalles['cantidad']);
+            }
+
+            // 6. Aquí podrías guardar la cabecera de la venta en una tabla 'Ventas'
+            // $venta = Venta::create([...]);
+        });
+
+        // 7. Limpiar carrito y finalizar
+        session()->forget('carrito');
+        return redirect()->route('tienda')->with('success', '¡Compra realizada con éxito! Tu stock ha sido actualizado.');
+
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', $e->getMessage());
+    }
+}
 
 }
