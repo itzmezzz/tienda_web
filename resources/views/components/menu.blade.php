@@ -18,12 +18,12 @@
         
         <p class="px-4 text-[10px] font-black text-zinc-600 uppercase tracking-[0.4em] mb-4">Principal</p>
         
-        <a href="/dashboard" class="flex items-center gap-3 px-4 py-3 bg-orange-600 text-black font-black italic shadow-[4px_4px_0_rgba(255,255,255,0.1)] group transition-all">
+            <a href="/dashboard" class="flex items-center gap-3 px-4 py-3 text-zinc-400 hover:bg-orange-600 hover:text-black group transition-all">
             <i class="fas fa-chart-line w-5 text-center"></i>
             <span class="uppercase tracking-widest text-[11px]">Dashboard</span>
         </a>
 
-        <a href="#" class="flex items-center gap-3 px-4 py-3 text-zinc-500 hover:text-white hover:bg-zinc-900 transition-all group border-b border-transparent hover:border-orange-600">
+        <a href="{{ route('admin.pedidos') }}" class="flex items-center gap-3 px-4 py-3 text-zinc-500 hover:text-white hover:bg-zinc-900 transition-all group border-b border-transparent hover:border-orange-600">
             <i class="fas fa-shopping-cart w-5 text-center group-hover:text-orange-600"></i>
             <span class="font-bold uppercase tracking-widest text-[11px]">Pedidos</span>
         </a>

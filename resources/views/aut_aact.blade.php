@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro Mangaka | Manga House</title>
+    <title>Actualizar Mangaka | Manga House</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -33,7 +33,7 @@
                     <div>
                         <span class="text-[10px] font-black text-zinc-500 tracking-[0.4em] uppercase block">Creator Registry</span>
                         <h1 class="text-3xl font-black text-white uppercase italic tracking-tighter">
-                            Añadir <span class="text-orange-600 italic">Mangaka</span>
+                            Actualizar <span class="text-orange-600 italic">Mangaka</span>
                         </h1>
                     </div>
                 </div>
@@ -43,8 +43,9 @@
                     {{-- Detalle superior naranja --}}
                     <div class="absolute top-0 left-0 w-32 h-1 bg-orange-600"></div>
 
-                    <form action="{{ route('autores.guardar') }}" method="POST">
+                    <form action="{{ route('autores.actualizar', $autores->id) }}" method="POST">
                         @csrf
+                        @method('PUT')
 
                         <div class="grid grid-cols-1 gap-8">
                             
@@ -52,7 +53,7 @@
                             <div>
                                 <label class="text-[10px] font-black text-orange-600 uppercase tracking-[0.2em] block mb-3">Nombre Completo</label>
                                 <div class="relative">
-                                    <input type="text" name="nombre" required placeholder="EJ. KENTARO MIURA"
+                                    <input type="text" name="nombre" value="{{ $autores->nombre }}" required placeholder="EJ. KENTARO MIURA"
                                         class="manga-input w-full bg-zinc-900 border border-zinc-800 p-4 text-white font-bold uppercase tracking-widest text-sm transition-all pl-12">
                                     <i class="fas fa-pen-nib absolute left-4 top-1/2 -translate-y-1/2 text-zinc-700 text-sm"></i>
                                 </div>
@@ -62,7 +63,7 @@
                             <div>
                                 <label class="text-[10px] font-black text-orange-600 uppercase tracking-[0.2em] block mb-3">Nacionalidad / Origen</label>
                                 <div class="relative">
-                                    <input type="text" name="nacionalidad" required placeholder="EJ. JAPONESA"
+                                    <input type="text" name="nacionalidad" value="{{ $autores->nacionalidad }}" required placeholder="EJ. JAPONESA"
                                         class="manga-input w-full bg-zinc-900 border border-zinc-800 p-4 text-white font-bold uppercase tracking-widest text-sm transition-all pl-12">
                                     <i class="fas fa-globe-asia absolute left-4 top-1/2 -translate-y-1/2 text-zinc-700 text-sm"></i>
                                 </div>

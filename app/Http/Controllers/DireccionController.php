@@ -71,7 +71,7 @@ public function editar($id)
     $direccion = DireccionUsuario::where('id', $id)
                                 ->where('id_usuario', auth()->id()) // Seguridad: solo sus propias direcciones
                                 ->firstOrFail();
-    return view('direcciones.editar', compact('direccion'));
+    return view('dire_act', compact('direccion'));
 }
 
 public function actualizar(Request $request, $id)

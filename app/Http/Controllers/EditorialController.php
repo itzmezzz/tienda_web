@@ -27,7 +27,7 @@ function eliminar($id){
 }
 function editar($id){
     $editorial = Editorial::findOrFail($id);
-    return view('editar_editorial', compact('editorial'));
+    return view('edito_act', compact('editorial'));
     }
 function actualizar(Request $req, $id){
     $editorial = Editorial::findOrFail($id);

@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* FORZAR VISIBILIDAD DEL SCROLLBAR ESTILO MANGA */
+       
         .custom-scrollbar::-webkit-scrollbar {
-            width: 8px;   /* Scroll vertical */
-            height: 8px;  /* Scroll horizontal */
+            width: 8px;   
+            height: 8px;  
             display: block;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
@@ -19,7 +19,7 @@
             border-left: 1px solid #18181b;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #ea580c; /* Naranja principal */
+            background: #ea580c; 
             border-radius: 0px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {

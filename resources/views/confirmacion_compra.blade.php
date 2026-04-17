@@ -27,7 +27,7 @@
                 @foreach($venta->detalles as $detalle)
                 <tr style="border-bottom: 1px solid #27272a;">
                     <td style="padding: 15px 12px; color: #ffffff; font-weight: bold;">
-                        {{ $detalle->producto->titulo }}
+                        {{ $detalle->producto->nombre }}
                     </td>
                     <td style="padding: 15px 12px; text-align: center;">
                         {{ $detalle->cantidad }}

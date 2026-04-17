@@ -18,4 +18,8 @@ class DireccionUsuario extends Model
         'pais', 
         'referencia'
     ];
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'id_usuario');
+    }
 }

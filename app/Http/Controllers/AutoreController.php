@@ -21,5 +21,25 @@ function lista(){
     $autores = Autore::all();
     return view('lista_autor', compact('autores'));
 }
+function eliminar($id){
+    $autores = Autore::findOrFail($id);
+    $autores->delete();
+    return redirect()->route('autores.lista')
+    ->with('success','Autor eliminado correctamente');
+}
+function editar($id){
+    $autores = Autore::findOrFail($id);
+    return view('aut_aact', compact('autores'));
+}
+
+function actualizar(Request $req, $id){
+    $autores = Autore::findOrFail($id);
+    $autores->nombre = $req->nombre;
+    $autores->nacionalidad = $req->nacionalidad;
+    $autores->save();
+    return redirect()->route('autores.lista')
+    ->with('success','Autor actualizado correctamente');
+}
+
 
 }
